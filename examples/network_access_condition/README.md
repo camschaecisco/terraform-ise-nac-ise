@@ -1,0 +1,35 @@
+<!-- BEGIN_TF_DOCS -->
+# ISE Network Access Condition Example
+To run this example you need to execute:
+```bash
+$ terraform init
+$ terraform plan
+$ terraform apply
+```
+Note that this example will create resources. Resources can be destroyed with `terraform destroy`.
+#### `network_access_condition.yaml`
+```yaml
+---
+ise:
+  policy:
+    policy_elements:
+      network_access_conditions:
+        - name: CertificateNotExpired
+          condition_type: LibraryConditionAttributes
+          is_negate: false
+          dictionary_name: CERTIFICATE
+          attribute_name: Is Expired
+          operator: equals
+          dictionary_value: null
+          attribute_value: "False"
+          description: null
+```
+#### `main.tf`
+```hcl
+module "ise" {
+  source = "git::https://wwwin-github.cisco.com/netascode/terraform-ise-nac-ise.git?ref=master"
+
+  yaml_files = ["network_access_condition.yaml"]
+}
+```
+<!-- END_TF_DOCS -->

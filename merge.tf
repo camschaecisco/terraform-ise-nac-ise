@@ -24,7 +24,7 @@ data "utils_yaml_merge" "model" {
 }
 
 data "utils_yaml_merge" "defaults" {
-  input = [file("${path.module}/data-example/defaults.yml"), yamlencode(local.user_defaults)]
+  input = [file("${path.module}/defaults/ise.yaml"), yamlencode(local.user_defaults)]
 }
 
 #resource "local_sensitive_file" "defaults" {

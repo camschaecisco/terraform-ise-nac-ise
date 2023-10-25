@@ -1,0 +1,19 @@
+---
+defaults:
+  ise:
+    policy:
+      policy_sets:
+        condition:
+          is_negate: false
+      network_access_conditions:
+        is_negate: false
+      allowed_protocols:
+        process_host_lookup: true
+        allow_pap_ascii: true
+        allow_chap: false
+        allow_ms_chap_v1: false
+        allow_ms_chap_v2: false
+        allow_eap_md5: true
+        allow_eap_tls: true
+        eap_tls_allow_auth_of_expired_certs: false
+        eap_tls_enable_stateless_session_resume: false
