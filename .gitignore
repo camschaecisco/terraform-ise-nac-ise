@@ -1,2 +1,6 @@
 .pre-commit-config.yaml
 *.log
+.terraform
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
