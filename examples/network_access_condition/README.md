@@ -1,5 +1,12 @@
 <!-- BEGIN_TF_DOCS -->
 # ISE Network Access Condition Example
+
+Set environment variables pointing to ISE:
+```bash
+export ISE_USERNAME=admin
+export ISE_PASSWORD=Cisco123
+export ISE_URL=https://10.1.1.1
+```
 To run this example you need to execute:
 ```bash
 $ terraform init
