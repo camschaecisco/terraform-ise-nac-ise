@@ -106,6 +106,8 @@ module "trustsec_security_groups_acl" {
 
   security_groups_acl          = local.security_groups_acl
   security_groups_acl_defaults = try(local.defaults.ise.trust_sec.security_groups_acl, null)
+
+  depends_on = [module.trustsec_security_groups]
 }
 
 module "trustsec_matrix" {
