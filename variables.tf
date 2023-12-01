@@ -16,8 +16,32 @@ variable "model" {
   default     = {}
 }
 
-#variable "write_default_values_file" {
-#  description = "Write all default values to a YAML file. Value is a path pointing to the file to be created."
-#  type        = string
-#  default     = ""
-#}
+variable "manage_policy" {
+  description = "Flag to indicate if policy configuration should be managed."
+  type        = bool
+  default     = false
+}
+
+variable "manage_identity_management" {
+  description = "Flag to indicate if identity management configuration should be managed."
+  type        = bool
+  default     = false
+}
+
+variable "manage_trustsec" {
+  description = "Flag to indicate if TrustSec configuration should be managed."
+  type        = bool
+  default     = false
+}
+
+variable "manage_administration" {
+  description = "Flag to indicate if administration configuration should be managed."
+  type        = bool
+  default     = false
+}
+
+variable "write_default_values_file" {
+  description = "Write all default values to a YAML file. Value is a path pointing to the file to be created."
+  type        = string
+  default     = ""
+}

@@ -1,5 +1,6 @@
 module "ise" {
-  source = "git::https://wwwin-github.cisco.com/netascode/terraform-ise-nac-ise.git?ref=master"
+  source  = "netascode/nac-ise/ise"
+  version = ">= 0.1.0"
 
   yaml_files = ["network_access_condition.yaml"]
 }
