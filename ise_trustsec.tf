@@ -1,5 +1,5 @@
 resource "ise_trustsec_security_group" "trustsec_security_group" {
-  for_each = { for group in try(local.ise.trust_sec.security_groups, []) : group.name => group if var.manage_trustsec }
+  for_each = { for group in try(local.ise.trust_sec.security_groups, []) : group.name => group if var.manage_trust_sec }
 
   description       = try(each.value.description, local.defaults.ise.trust_sec.security_groups.description, null)
   name              = each.key
@@ -9,7 +9,7 @@ resource "ise_trustsec_security_group" "trustsec_security_group" {
 }
 
 resource "ise_trustsec_security_group_acl" "trustsec_security_group_acl" {
-  for_each = { for acl in local.ise.trust_sec.security_group_acls : acl.name => acl if var.manage_trustsec }
+  for_each = { for acl in local.ise.trust_sec.security_group_acls : acl.name => acl if var.manage_trust_sec }
 
   acl_content = try(each.value.acl_content, local.defaults.ise.trust_sec.security_group_acls.acl_content, null)
   description = try(each.value.description, local.defaults.ise.trust_sec.security_group_acls.description, null)
@@ -20,8 +20,8 @@ resource "ise_trustsec_security_group_acl" "trustsec_security_group_acl" {
 }
 
 locals {
-  trustsec_matrix = { for cell in try(local.ise.trust_sec.matrix, []) : "${cell.src_sgt}-${cell.dst_sgt}" => cell if var.manage_trustsec }
-  unique_sgts     = distinct(concat([for key, value in local.trustsec_matrix : value.src_sgt], [for key, value in local.trustsec_matrix : value.dst_sgt]))
+  trustsec_matrix = { for cell in try(local.ise.trust_sec.matrix_entries, []) : "${cell.source_sgt}-${cell.destination_sgt}" => cell if var.manage_trust_sec }
+  unique_sgts     = distinct(concat([for key, value in local.trustsec_matrix : value.source_sgt], [for key, value in local.trustsec_matrix : value.destination_sgt]))
   known_sgts      = [for group in try(local.ise.trust_sec.security_groups, []) : group.name]
   unknown_sgts    = setsubtract(local.unique_sgts, local.known_sgts)
   unique_sgacls   = distinct([for key, value in local.trustsec_matrix : value.sgacl_name])
@@ -44,8 +44,8 @@ data "ise_trustsec_security_group_acl" "trustsec_security_group_acl" {
 resource "ise_trustsec_egress_matrix_cell" "trustsec_egress_matrix_cell" {
   for_each = local.trustsec_matrix
 
-  source_sgt_id      = contains(local.known_sgts, each.value.src_sgt) ? ise_trustsec_security_group.trustsec_security_group[each.value.src_sgt].id : data.ise_trustsec_security_group.trustsec_security_group[each.value.src_sgt].id
-  destination_sgt_id = contains(local.known_sgts, each.value.dst_sgt) ? ise_trustsec_security_group.trustsec_security_group[each.value.dst_sgt].id : data.ise_trustsec_security_group.trustsec_security_group[each.value.dst_sgt].id
+  source_sgt_id      = contains(local.known_sgts, each.value.source_sgt) ? ise_trustsec_security_group.trustsec_security_group[each.value.source_sgt].id : data.ise_trustsec_security_group.trustsec_security_group[each.value.source_sgt].id
+  destination_sgt_id = contains(local.known_sgts, each.value.destination_sgt) ? ise_trustsec_security_group.trustsec_security_group[each.value.destination_sgt].id : data.ise_trustsec_security_group.trustsec_security_group[each.value.destination_sgt].id
   matrix_cell_status = each.value.rule_status
   sgacls             = contains(local.known_sgacls, each.value.sgacl_name) ? [ise_trustsec_security_group_acl.trustsec_security_group_acl[each.value.sgacl_name].id] : try([data.ise_trustsec_security_group_acl.trustsec_security_group_acl[each.value.sgacl_name].id], [])
 

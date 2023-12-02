@@ -16,8 +16,8 @@ variable "model" {
   default     = {}
 }
 
-variable "manage_policy" {
-  description = "Flag to indicate if policy configuration should be managed."
+variable "manage_network_access" {
+  description = "Flag to indicate if network access configuration should be managed."
   type        = bool
   default     = false
 }
@@ -28,14 +28,14 @@ variable "manage_identity_management" {
   default     = false
 }
 
-variable "manage_trustsec" {
+variable "manage_trust_sec" {
   description = "Flag to indicate if TrustSec configuration should be managed."
   type        = bool
   default     = false
 }
 
-variable "manage_administration" {
-  description = "Flag to indicate if administration configuration should be managed."
+variable "manage_system" {
+  description = "Flag to indicate if system configuration should be managed."
   type        = bool
   default     = false
 }

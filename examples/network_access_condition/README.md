@@ -24,18 +24,16 @@ Note that this example will create resources. Resources can be destroyed with `t
 ```yaml
 ---
 ise:
-  policy:
+  network_access:
     policy_elements:
-      network_access_conditions:
+      conditions:
         - name: CertificateNotExpired
-          condition_type: LibraryConditionAttributes
+          type: LibraryConditionAttributes
           is_negate: false
           dictionary_name: CERTIFICATE
           attribute_name: Is Expired
           operator: equals
-          dictionary_value: null
           attribute_value: "False"
-          description: null
 ```
 
 #### `main.tf`

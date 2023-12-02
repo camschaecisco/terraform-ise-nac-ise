@@ -16,18 +16,16 @@ Configuring a Network Access Condition using YAML:
 ```yaml
 ---
 ise:
-  policy:
+  network_access:
     policy_elements:
-      network_access_conditions:
+      conditions:
         - name: CertificateNotExpired
-          condition_type: LibraryConditionAttributes
+          type: LibraryConditionAttributes
           is_negate: false
           dictionary_name: CERTIFICATE
           attribute_name: Is Expired
           operator: equals
-          dictionary_value: null
           attribute_value: "False"
-          description: null
 ```
 
 #### `main.tf`
@@ -53,10 +51,10 @@ module "ise" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_manage_administration"></a> [manage\_administration](#input\_manage\_administration) | Flag to indicate if administration configuration should be managed. | `bool` | `false` | no |
 | <a name="input_manage_identity_management"></a> [manage\_identity\_management](#input\_manage\_identity\_management) | Flag to indicate if identity management configuration should be managed. | `bool` | `false` | no |
-| <a name="input_manage_policy"></a> [manage\_policy](#input\_manage\_policy) | Flag to indicate if policy configuration should be managed. | `bool` | `false` | no |
-| <a name="input_manage_trustsec"></a> [manage\_trustsec](#input\_manage\_trustsec) | Flag to indicate if TrustSec configuration should be managed. | `bool` | `false` | no |
+| <a name="input_manage_network_access"></a> [manage\_network\_access](#input\_manage\_network\_access) | Flag to indicate if network access configuration should be managed. | `bool` | `false` | no |
+| <a name="input_manage_system"></a> [manage\_system](#input\_manage\_system) | Flag to indicate if system configuration should be managed. | `bool` | `false` | no |
+| <a name="input_manage_trust_sec"></a> [manage\_trust\_sec](#input\_manage\_trust\_sec) | Flag to indicate if TrustSec configuration should be managed. | `bool` | `false` | no |
 | <a name="input_model"></a> [model](#input\_model) | As an alternative to YAML files, a native Terraform data structure can be provided as well. | `map(any)` | `{}` | no |
 | <a name="input_write_default_values_file"></a> [write\_default\_values\_file](#input\_write\_default\_values\_file) | Write all default values to a YAML file. Value is a path pointing to the file to be created. | `string` | `""` | no |
 | <a name="input_yaml_directories"></a> [yaml\_directories](#input\_yaml\_directories) | List of paths to YAML directories. | `list(string)` | `[]` | no |
@@ -65,7 +63,6 @@ module "ise" {
 
 | Name | Description |
 |------|-------------|
-| <a name="output_debug"></a> [debug](#output\_debug) | n/a |
 | <a name="output_default_values"></a> [default\_values](#output\_default\_values) | All default values. |
 | <a name="output_model"></a> [model](#output\_model) | Full model. |
 ## Providers
