@@ -265,7 +265,7 @@ resource "ise_network_access_policy_set" "network_access_policy_set" {
 
 locals {
   network_access_authentication_rules = flatten([
-    for ps in local.ise.network_access.policy_sets : [
+    for ps in try(local.ise.network_access.policy_sets, []) : [
       for rule in try(ps.authentication_rules, []) : {
         key                       = format("%s/%s", ps.name, rule.name)
         policy_set_id             = ise_network_access_policy_set.network_access_policy_set[ps.name].id
@@ -333,7 +333,7 @@ resource "ise_network_access_authentication_rule" "network_access_authentication
 
 locals {
   network_access_authorization_rules = flatten([
-    for ps in local.ise.network_access.policy_sets : [
+    for ps in try(local.ise.network_access.policy_sets, []) : [
       for rule in try(ps.authorization_rules, []) : {
         key                       = format("%s/%s", ps.name, rule.name)
         policy_set_id             = ise_network_access_policy_set.network_access_policy_set[ps.name].id
@@ -399,7 +399,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
 
 locals {
   network_access_authorization_exception_rules = flatten([
-    for ps in local.ise.network_access.policy_sets : [
+    for ps in try(local.ise.network_access.policy_sets, []) : [
       for rule in try(ps.authorization_exception_rules, []) : {
         key                       = format("%s/%s", ps.name, rule.name)
         policy_set_id             = ise_network_access_policy_set.network_access_policy_set[ps.name].id

@@ -30,7 +30,7 @@ resource "ise_trustsec_security_group" "trustsec_security_group" {
 }
 
 resource "ise_trustsec_security_group_acl" "trustsec_security_group_acl" {
-  for_each = { for acl in local.ise.trust_sec.security_group_acls : acl.name => acl if var.manage_trust_sec }
+  for_each = { for acl in try(local.ise.trust_sec.security_group_acls, []) : acl.name => acl if var.manage_trust_sec }
 
   name        = each.key
   acl_content = try(each.value.acl_content, local.defaults.ise.trust_sec.security_group_acls.acl_content, null)
@@ -41,7 +41,7 @@ resource "ise_trustsec_security_group_acl" "trustsec_security_group_acl" {
 }
 
 resource "ise_trustsec_ip_to_sgt_mapping_group" "trustsec_ip_to_sgt_mapping_group" {
-  for_each = { for group in local.ise.trust_sec.ip_sgt_mapping_groups : group.name => group if var.manage_trust_sec }
+  for_each = { for group in try(local.ise.trust_sec.ip_sgt_mapping_groups, []) : group.name => group if var.manage_trust_sec }
 
   name        = each.key
   description = try(each.value.description, local.defaults.ise.trust_sec.ip_sgt_mappings.description, null)
@@ -51,7 +51,7 @@ resource "ise_trustsec_ip_to_sgt_mapping_group" "trustsec_ip_to_sgt_mapping_grou
 }
 
 resource "ise_trustsec_ip_to_sgt_mapping" "trustsec_ip_to_sgt_mapping" {
-  for_each = { for map in local.ise.trust_sec.ip_sgt_mappings : map.name => map if var.manage_trust_sec }
+  for_each = { for map in try(local.ise.trust_sec.ip_sgt_mappingsm []) : map.name => map if var.manage_trust_sec }
 
   name          = each.key
   description   = try(each.value.description, local.defaults.ise.trust_sec.ip_sgt_mappings.description, null)
