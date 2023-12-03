@@ -9,3 +9,10 @@ resource "ise_repository" "repository" {
   server_name = try(each.value.server_name, local.defaults.ise.system.repositories.server_name, null)
   user_name   = try(each.value.user_name, local.defaults.ise.system.repositories.user_name, null)
 }
+
+resource "ise_license_tier_state" "license_tier_state" {
+  licenses = [for license in try(local.ise.system.licenses, []) : {
+    name   = license.name
+    status = license.status
+  }]
+}

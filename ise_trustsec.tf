@@ -1,27 +1,6 @@
-resource "ise_trustsec_security_group" "trustsec_security_group" {
-  for_each = { for group in try(local.ise.trust_sec.security_groups, []) : group.name => group if var.manage_trust_sec }
-
-  description       = try(each.value.description, local.defaults.ise.trust_sec.security_groups.description, null)
-  name              = each.key
-  propogate_to_apic = try(each.value.propagate_to_apic, local.defaults.ise.trust_sec.security_groups.propogate_to_apic, null)
-  value             = try(each.value.value, local.defaults.ise.trust_sec.security_groups.value, null)
-  is_read_only      = try(each.value.is_read_only, local.defaults.ise.trust_sec.security_groups.is_read_only, null)
-}
-
-resource "ise_trustsec_security_group_acl" "trustsec_security_group_acl" {
-  for_each = { for acl in local.ise.trust_sec.security_group_acls : acl.name => acl if var.manage_trust_sec }
-
-  acl_content = try(each.value.acl_content, local.defaults.ise.trust_sec.security_group_acls.acl_content, null)
-  description = try(each.value.description, local.defaults.ise.trust_sec.security_group_acls.description, null)
-  ip_version  = try(each.value.ip_version, local.defaults.ise.trust_sec.security_group_acls.ip_version, null)
-  name        = each.key
-
-  depends_on = [ise_trustsec_security_group.trustsec_security_group]
-}
-
 locals {
   trustsec_matrix = { for cell in try(local.ise.trust_sec.matrix_entries, []) : "${cell.source_sgt}-${cell.destination_sgt}" => cell if var.manage_trust_sec }
-  unique_sgts     = distinct(concat([for key, value in local.trustsec_matrix : value.source_sgt], [for key, value in local.trustsec_matrix : value.destination_sgt]))
+  unique_sgts     = distinct(concat([for key, value in local.trustsec_matrix : value.source_sgt], [for key, value in local.trustsec_matrix : value.destination_sgt], [for map in try(local.ise.trust_sec.ip_sgt_mappings, []) : map.sgt]))
   known_sgts      = [for group in try(local.ise.trust_sec.security_groups, []) : group.name]
   unknown_sgts    = setsubtract(local.unique_sgts, local.known_sgts)
   unique_sgacls   = distinct([for key, value in local.trustsec_matrix : value.sgacl_name])
@@ -39,6 +18,49 @@ data "ise_trustsec_security_group_acl" "trustsec_security_group_acl" {
   for_each = toset(local.unknown_sgacls)
 
   name = each.value
+}
+
+resource "ise_trustsec_security_group" "trustsec_security_group" {
+  for_each = { for group in try(local.ise.trust_sec.security_groups, []) : group.name => group if var.manage_trust_sec }
+
+  name              = each.key
+  description       = try(each.value.description, local.defaults.ise.trust_sec.security_groups.description, null)
+  propogate_to_apic = try(each.value.propagate_to_apic, local.defaults.ise.trust_sec.security_groups.propogate_to_apic, null)
+  value             = try(each.value.value, local.defaults.ise.trust_sec.security_groups.value, null)
+}
+
+resource "ise_trustsec_security_group_acl" "trustsec_security_group_acl" {
+  for_each = { for acl in local.ise.trust_sec.security_group_acls : acl.name => acl if var.manage_trust_sec }
+
+  name        = each.key
+  acl_content = try(each.value.acl_content, local.defaults.ise.trust_sec.security_group_acls.acl_content, null)
+  description = try(each.value.description, local.defaults.ise.trust_sec.security_group_acls.description, null)
+  ip_version  = try(each.value.ip_version, local.defaults.ise.trust_sec.security_group_acls.ip_version, null)
+
+  depends_on = [ise_trustsec_security_group.trustsec_security_group]
+}
+
+resource "ise_trustsec_ip_to_sgt_mapping_group" "trustsec_ip_to_sgt_mapping_group" {
+  for_each = { for group in local.ise.trust_sec.ip_sgt_mapping_groups : group.name => group if var.manage_trust_sec }
+
+  name        = each.key
+  description = try(each.value.description, local.defaults.ise.trust_sec.ip_sgt_mappings.description, null)
+  sgt         = try(each.value.sgt, null) != null ? (contains(local.known_sgts, each.value.sgt) ? ise_trustsec_security_group.trustsec_security_group[each.value.sgt].id : data.ise_trustsec_security_group.trustsec_security_group[each.value.sgt].id) : null
+  deploy_type = try(each.value.deploy_type, local.defaults.ise.trust_sec.ip_sgt_mappings.deploy_type, null)
+  deploy_to   = try(each.value.deploy_to, local.defaults.ise.trust_sec.ip_sgt_mappings.deploy_to, null)
+}
+
+resource "ise_trustsec_ip_to_sgt_mapping" "trustsec_ip_to_sgt_mapping" {
+  for_each = { for map in local.ise.trust_sec.ip_sgt_mappings : map.name => map if var.manage_trust_sec }
+
+  name          = each.key
+  description   = try(each.value.description, local.defaults.ise.trust_sec.ip_sgt_mappings.description, null)
+  host_ip       = try(each.value.host_ip, local.defaults.ise.trust_sec.ip_sgt_mappings.host_ip, null)
+  host_name     = try(each.value.host_name, local.defaults.ise.trust_sec.ip_sgt_mappings.host_name, null)
+  sgt           = try(each.value.sgt, null) != null ? (contains(local.known_sgts, each.value.sgt) ? ise_trustsec_security_group.trustsec_security_group[each.value.sgt].id : data.ise_trustsec_security_group.trustsec_security_group[each.value.sgt].id) : null
+  mapping_group = try(each.value.mapping_group, null) != null ? ise_trustsec_ip_to_sgt_mapping_group.trustsec_ip_to_sgt_mapping_group[each.value.mapping_group].id : null
+  deploy_type   = try(each.value.deploy_type, local.defaults.ise.trust_sec.ip_sgt_mappings.deploy_type, null)
+  deploy_to     = try(each.value.deploy_to, local.defaults.ise.trust_sec.ip_sgt_mappings.deploy_to, null)
 }
 
 resource "ise_trustsec_egress_matrix_cell" "trustsec_egress_matrix_cell" {

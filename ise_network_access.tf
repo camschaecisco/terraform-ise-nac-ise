@@ -71,16 +71,18 @@ resource "ise_authorization_profile" "authorization_profile" {
   description                                           = try(each.value.description, local.defaults.ise.network_access.policy_elements.authorization_profiles.description, null)
   vlan_name_id                                          = try(each.value.vlan_name_id, local.defaults.ise.network_access.policy_elements.authorization_profiles.vlan_name_id, null)
   vlan_tag_id                                           = try(each.value.vlan_tag_id, local.defaults.ise.network_access.policy_elements.authorization_profiles.vlan_tag_id, null)
-  web_redirection_type                                  = try(each.value.web_redirection_type, local.defaults.ise.network_access.policy_elements.authorization_profiles.web_redirection_type, null)
-  web_redirection_acl                                   = try(each.value.web_redirection_acl, local.defaults.ise.network_access.policy_elements.authorization_profiles.web_redirection_acl, null)
-  web_redirection_portal_name                           = try(each.value.web_redirection_portal_name, local.defaults.ise.network_access.policy_elements.authorization_profiles.web_redirection_portal_name, null)
-  web_redirection_static_ip_host_name_fqdn              = try(each.value.web_redirection_static_ip_host_name_fqdn, local.defaults.ise.network_access.policy_elements.authorization_profiles.web_redirection_static_ip_host_name_fqdn, null)
-  web_redirection_display_certificates_renewal_messages = try(each.value.web_redirection_display_certificates_renewal_messages, local.defaults.ise.network_access.policy_elements.authorization_profiles.web_redirection_display_certificates_renewal_messages, null)
+  web_redirection_type                                  = try(each.value.web_redirection.type, local.defaults.ise.network_access.policy_elements.authorization_profiles.web_redirection.type, null)
+  web_redirection_acl                                   = try(each.value.web_redirection.acl, local.defaults.ise.network_access.policy_elements.authorization_profiles.web_redirection.acl, null)
+  web_redirection_portal_name                           = try(each.value.web_redirection.portal_name, local.defaults.ise.network_access.policy_elements.authorization_profiles.web_redirection.portal_name, null)
+  web_redirection_static_ip_host_name_fqdn              = try(each.value.web_redirection.static_ip_host_name_fqdn, local.defaults.ise.network_access.policy_elements.authorization_profiles.web_redirection.static_ip_host_name_fqdn, null)
+  web_redirection_display_certificates_renewal_messages = try(each.value.web_redirection.display_certificates_renewal_messages, local.defaults.ise.network_access.policy_elements.authorization_profiles.web_redirection.display_certificates_renewal_messages, null)
   agentless_posture                                     = try(each.value.agentless_posture, local.defaults.ise.network_access.policy_elements.authorization_profiles.agentless_posture, null)
   access_type                                           = try(each.value.access_type, local.defaults.ise.network_access.policy_elements.authorization_profiles.access_type, null)
   profile_name                                          = try(each.value.profile_name, local.defaults.ise.network_access.policy_elements.authorization_profiles.profile_name, null)
   airespace_acl                                         = try(each.value.airespace_acl, local.defaults.ise.network_access.policy_elements.authorization_profiles.airespace_acl, null)
   acl                                                   = try(each.value.acl, local.defaults.ise.network_access.policy_elements.authorization_profiles.acl, null)
+  dacl_name                                             = try(each.value.dacl_name, local.defaults.ise.network_access.policy_elements.authorization_profiles.dacl_name, null)
+  ipv6_dacl_name                                        = try(each.value.ipv6_dacl_name, local.defaults.ise.network_access.policy_elements.authorization_profiles.ipv6_dacl_name, null)
   auto_smart_port                                       = try(each.value.auto_smart_port, local.defaults.ise.network_access.policy_elements.authorization_profiles.auto_smart_port, null)
   interface_template                                    = try(each.value.interface_template, local.defaults.ise.network_access.policy_elements.authorization_profiles.interface_template, null)
   ipv6_acl_filter                                       = try(each.value.ipv6_acl_filter, local.defaults.ise.network_access.policy_elements.authorization_profiles.ipv6_acl_filter, null)
@@ -109,6 +111,8 @@ resource "ise_authorization_profile" "authorization_profile" {
   lifecycle {
     create_before_destroy = true
   }
+
+  depends_on = [ise_downloadable_acl.downloadable_acl]
 }
 
 resource "ise_network_access_condition" "network_access_condition" {
@@ -122,7 +126,64 @@ resource "ise_network_access_condition" "network_access_condition" {
   operator        = try(each.value.operator, local.defaults.ise.network_access.policy_elements.conditions.operator, null)
   description     = try(each.value.description, local.defaults.ise.network_access.policy_elements.conditions.description, null)
   name            = each.key
-  children        = try(each.value.children, null)
+  children = [for c in try(each.value.children, []) : {
+    attribute_name   = try(c.attribute_name, null)
+    attribute_value  = try(c.attribute_value, null)
+    condition_type   = try(c.type, null)
+    dictionary_name  = try(c.dictionary_name, null)
+    dictionary_value = try(c.dictionary_value, null)
+    is_negate        = try(c.is_negate, null)
+    operator         = try(c.operator, null)
+    name             = try(c.name, null)
+    description      = try(c.description, null)
+    children = [for c2 in try(c.children, []) : {
+      attribute_name   = try(c2.attribute_name, null)
+      attribute_value  = try(c2.attribute_value, null)
+      condition_type   = try(c2.type, null)
+      dictionary_name  = try(c2.dictionary_name, null)
+      dictionary_value = try(c2.dictionary_value, null)
+      is_negate        = try(c2.is_negate, null)
+      operator         = try(c2.operator, null)
+      name             = try(c2.name, null)
+      description      = try(c2.description, null)
+    }]
+  }]
+}
+
+resource "ise_downloadable_acl" "downloadable_acl" {
+  for_each = { for dacl in try(local.ise.network_access.policy_elements.downloadable_acls, []) : dacl.name => dacl if var.manage_network_access }
+
+  name        = each.key
+  description = try(each.value.description, local.defaults.ise.network_access.policy_elements.downloadable_acls.description, null)
+  dacl        = try(each.value.dacl, local.defaults.ise.network_access.policy_elements.downloadable_acls.dacl_content, null)
+  dacl_type   = try(each.value.dacl_type, local.defaults.ise.network_access.policy_elements.downloadable_acls.dacl_type, null)
+}
+
+resource "ise_network_access_dictionary" "network_access_dictionary" {
+  for_each = { for d in try(local.ise.network_access.policy_elements.dictionaries, []) : d.name => d if var.manage_network_access }
+
+  name                 = each.key
+  description          = try(each.value.description, local.defaults.ise.network_access.policy_elements.dictionaries.description, null)
+  version              = try(each.value.version, local.defaults.ise.network_access.policy_elements.dictionaries.version, null)
+  dictionary_attr_type = try(each.value.attribute_type, local.defaults.ise.network_access.policy_elements.dictionaries.attribute_type, null)
+}
+
+resource "ise_network_access_time_and_date_condition" "network_access_time_and_date_condition" {
+  for_each = { for c in try(local.ise.network_access.policy_elements.time_data_conditions, []) : c.name => c if var.manage_network_access }
+
+  name                 = each.key
+  description          = try(each.value.description, local.defaults.ise.network_access.policy_elements.time_data_conditions.description, null)
+  is_negate            = try(each.value.is_negate, local.defaults.ise.network_access.policy_elements.time_data_conditions.is_negate, null)
+  week_days            = try(each.value.week_days, local.defaults.ise.network_access.policy_elements.time_data_conditions.week_days, null)
+  week_days_exception  = try(each.value.week_days_exception, local.defaults.ise.network_access.policy_elements.time_data_conditions.week_days_exception, null)
+  start_date           = try(each.value.start_date, local.defaults.ise.network_access.policy_elements.time_data_conditions.start_date, null)
+  end_date             = try(each.value.end_date, local.defaults.ise.network_access.policy_elements.time_data_conditions.end_date, null)
+  exception_start_date = try(each.value.exception_start_date, local.defaults.ise.network_access.policy_elements.time_data_conditions.exception_start_date, null)
+  exception_end_date   = try(each.value.exception_end_date, local.defaults.ise.network_access.policy_elements.time_data_conditions.exception_end_date, null)
+  start_time           = try(each.value.start_time, local.defaults.ise.network_access.policy_elements.time_data_conditions.start_time, null)
+  end_time             = try(each.value.end_time, local.defaults.ise.network_access.policy_elements.time_data_conditions.end_time, null)
+  exception_start_time = try(each.value.exception_start_time, local.defaults.ise.network_access.policy_elements.time_data_conditions.exception_start_time, null)
+  exception_end_time   = try(each.value.exception_end_time, local.defaults.ise.network_access.policy_elements.time_data_conditions.exception_end_time, null)
 }
 
 locals {
@@ -332,6 +393,112 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   profiles                  = each.value.profiles
   security_group            = each.value.security_group
   children                  = each.value.children
+
+  depends_on = [ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+locals {
+  network_access_authorization_exception_rules = flatten([
+    for ps in local.ise.network_access.policy_sets : [
+      for rule in try(ps.authorization_exception_rules, []) : {
+        key                       = format("%s/%s", ps.name, rule.name)
+        policy_set_id             = ise_network_access_policy_set.network_access_policy_set[ps.name].id
+        name                      = rule.name
+        rank                      = try(rule.rank, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.rank, null)
+        default                   = try(rule.default, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.default, null)
+        state                     = try(rule.state, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.state, null)
+        condition_type            = try(rule.condition.type, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.condition.type, null)
+        condition_id              = contains(local.known_conditions, try(rule.condition.name, "")) ? ise_network_access_condition.network_access_condition[rule.condition.name].id : try(data.ise_network_access_condition.network_access_condition[rule.condition.name].id, null)
+        condition_is_negate       = try(rule.condition.is_negate, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.condition.is_negate, null)
+        condition_attribute_name  = try(rule.condition.attribute_name, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.condition.attribute_name, null)
+        condition_attribute_value = try(rule.condition.attribute_value, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.condition.attribute_value, null)
+        condition_dictionary_name = try(rule.condition.dictionary_name, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.condition.dictionary_name, null)
+        condition_operator        = try(rule.condition.operator, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.condition.operator, null)
+        profiles                  = try(rule.profiles, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.profiles, null)
+        security_group            = try(rule.security_group, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.security_group, null)
+        children = try([for i in rule.condition.children : {
+          attribute_name   = try(i.attribute_name, null)
+          attribute_value  = try(i.attribute_value, null)
+          condition_type   = try(i.type, null)
+          dictionary_name  = try(i.dictionary_name, null)
+          dictionary_value = try(i.dictionary_value, null)
+          is_negate        = try(i.is_negate, null)
+          operator         = try(i.operator, null)
+          id               = contains(local.known_conditions, try(i.name, "")) ? ise_network_access_condition.network_access_condition[i.name].id : try(data.ise_network_access_condition.network_access_condition[i.name].id, null)
+          children = try([for j in i.children : {
+            attribute_name   = try(j.attribute_name, null)
+            attribute_value  = try(j.attribute_value, null)
+            condition_type   = try(j.type, null)
+            dictionary_name  = try(j.dictionary_name, null)
+            dictionary_value = try(j.dictionary_value, null)
+            is_negate        = try(j.is_negate, null)
+            operator         = try(j.operator, null)
+            id               = contains(local.known_conditions, try(j.name, "")) ? ise_network_access_condition.network_access_condition[j.name].id : try(data.ise_network_access_condition.network_access_condition[j.name].id, null)
+          }], null)
+        }], null)
+      }
+    ]
+  ])
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule" {
+  for_each = { for rule in try(local.ise.network_access.authorization_global_exception_rules, []) : rule.key => rule if var.manage_network_access }
+
+  name                      = each.value.name
+  rank                      = try(each.value.rank, local.defaults.ise.network_access.authorization_global_exception_rules.rank, null)
+  default                   = try(each.value.default, local.defaults.ise.network_access.authorization_global_exception_rules.default, null)
+  state                     = try(each.value.state, local.defaults.ise.network_access.authorization_global_exception_rules.state, null)
+  condition_type            = try(each.value.condition.type, local.defaults.ise.network_access.authorization_global_exception_rules.condition.type, null)
+  condition_id              = contains(local.known_conditions, try(each.value.condition.name, "")) ? ise_network_access_condition.network_access_condition[each.value.condition.name].id : try(data.ise_network_access_condition.network_access_condition[each.value.condition.name].id, null)
+  condition_is_negate       = try(each.value.condition.is_negate, local.defaults.ise.network_access.authorization_global_exception_rules.condition.is_negate, null)
+  condition_attribute_name  = try(each.value.condition.attribute_name, local.defaults.ise.network_access.authorization_global_exception_rules.condition.attribute_name, null)
+  condition_attribute_value = try(each.value.condition.attribute_value, local.defaults.ise.network_access.authorization_global_exception_rules.condition.attribute_value, null)
+  condition_dictionary_name = try(each.value.condition.dictionary_name, local.defaults.ise.network_access.authorization_global_exception_rules.condition.dictionary_name, null)
+  condition_operator        = try(each.value.condition.operator, local.defaults.ise.network_access.authorization_global_exception_rules.condition.operator, null)
+  profiles                  = try(each.value.profiles, local.defaults.ise.network_access.authorization_global_exception_rules.profiles, null)
+  security_group            = try(each.value.security_group, local.defaults.ise.network_access.authorization_global_exception_rules.security_group, null)
+  children = try([for i in each.value.condition.children : {
+    attribute_name   = try(i.attribute_name, null)
+    attribute_value  = try(i.attribute_value, null)
+    condition_type   = try(i.type, null)
+    dictionary_name  = try(i.dictionary_name, null)
+    dictionary_value = try(i.dictionary_value, null)
+    is_negate        = try(i.is_negate, null)
+    operator         = try(i.operator, null)
+    id               = contains(local.known_conditions, try(i.name, "")) ? ise_network_access_condition.network_access_condition[i.name].id : try(data.ise_network_access_condition.network_access_condition[i.name].id, null)
+    children = try([for j in i.children : {
+      attribute_name   = try(j.attribute_name, null)
+      attribute_value  = try(j.attribute_value, null)
+      condition_type   = try(j.type, null)
+      dictionary_name  = try(j.dictionary_name, null)
+      dictionary_value = try(j.dictionary_value, null)
+      is_negate        = try(j.is_negate, null)
+      operator         = try(j.operator, null)
+      id               = contains(local.known_conditions, try(j.name, "")) ? ise_network_access_condition.network_access_condition[j.name].id : try(data.ise_network_access_condition.network_access_condition[j.name].id, null)
+    }], null)
+  }], null)
 
   depends_on = [ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
 }
