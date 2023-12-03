@@ -155,7 +155,7 @@ resource "ise_downloadable_acl" "downloadable_acl" {
 
   name        = each.key
   description = try(each.value.description, local.defaults.ise.network_access.policy_elements.downloadable_acls.description, null)
-  dacl        = try(each.value.dacl, local.defaults.ise.network_access.policy_elements.downloadable_acls.dacl_content, null)
+  dacl        = try(each.value.dacl_content, local.defaults.ise.network_access.policy_elements.downloadable_acls.dacl_content, null)
   dacl_type   = try(each.value.dacl_type, local.defaults.ise.network_access.policy_elements.downloadable_acls.dacl_type, null)
 }
 
