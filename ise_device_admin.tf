@@ -184,7 +184,7 @@ locals {
     for ps in try(local.ise.device_administration.policy_sets, []) : [
       for rule in try(ps.authentication_rules, []) : {
         key                       = format("%s/%s", ps.name, rule.name)
-        policy_set_id             = ise_device_administration_policy_set.device_administration_policy_set[ps.name].id
+        policy_set_id             = ise_device_admin_policy_set.device_admin_policy_set[ps.name].id
         name                      = rule.name
         rank                      = try(rule.rank, local.defaults.ise.device_administration.policy_sets.authentication_rules.rank, null)
         default                   = try(rule.default, local.defaults.ise.device_administration.policy_sets.authentication_rules.default, null)
@@ -252,7 +252,7 @@ locals {
     for ps in try(local.ise.device_administration.policy_sets, []) : [
       for rule in try(ps.authorization_rules, []) : {
         key                       = format("%s/%s", ps.name, rule.name)
-        policy_set_id             = ise_device_administration_policy_set.device_administration_policy_set[ps.name].id
+        policy_set_id             = ise_device_admin_policy_set.device_admin_policy_set[ps.name].id
         name                      = rule.name
         rank                      = try(rule.rank, local.defaults.ise.device_administration.policy_sets.authorization_rules.rank, null)
         default                   = try(rule.default, local.defaults.ise.device_administration.policy_sets.authorization_rules.default, null)
@@ -318,7 +318,7 @@ locals {
     for ps in try(local.ise.device_administration.policy_sets, []) : [
       for rule in try(ps.authorization_exception_rules, []) : {
         key                       = format("%s/%s", ps.name, rule.name)
-        policy_set_id             = ise_device_administration_policy_set.device_administration_policy_set[ps.name].id
+        policy_set_id             = ise_device_admin_policy_set.device_admin_policy_set[ps.name].id
         name                      = rule.name
         rank                      = try(rule.rank, local.defaults.ise.device_administration.policy_sets.authorization_exception_rules.rank, null)
         default                   = try(rule.default, local.defaults.ise.device_administration.policy_sets.authorization_exception_rules.default, null)
