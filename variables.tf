@@ -22,6 +22,12 @@ variable "manage_network_access" {
   default     = false
 }
 
+variable "manage_device_administration" {
+  description = "Flag to indicate if device administration configuration should be managed."
+  type        = bool
+  default     = false
+}
+
 variable "manage_identity_management" {
   description = "Flag to indicate if identity management configuration should be managed."
   type        = bool

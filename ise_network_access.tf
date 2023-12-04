@@ -212,7 +212,23 @@ locals {
       ]
     ]
   ])
-  unique_conditions  = distinct(concat(local.conditions_network_access_policy_sets, local.conditions_network_access_policy_set_authentication_rules, local.conditions_network_access_policy_set_authorization_rules))
+  conditions_network_access_policy_set_authorization_exception_rules = flatten([
+    for v in try(local.ise.network_access.policy_sets, []) : [
+      for r in try(v.authorization_exception_rules, []) : try(r.condition.type, null) == "ConditionReference" ? [r.condition.name] : [
+        for v2 in try(r.condition.children, []) : try(v2.type, null) == "ConditionReference" ? [v2.name] : [
+          for v3 in try(v2.children, []) : try(v3.type, null) == "ConditionReference" ? [v3.name] : []
+        ]
+      ]
+    ]
+  ])
+  conditions_network_access_authorization_global_exception_rules = flatten([
+    for v in try(local.ise.network_access.authorization_global_exception_rules, []) : try(v.condition.type, null) == "ConditionReference" ? [v.condition.name] : [
+      for v2 in try(v.condition.children, []) : try(v2.type, null) == "ConditionReference" ? [v2.name] : [
+        for v3 in try(v2.children, []) : try(v3.type, null) == "ConditionReference" ? [v3.name] : []
+      ]
+    ]
+  ])
+  unique_conditions  = distinct(concat(local.conditions_network_access_policy_sets, local.conditions_network_access_policy_set_authentication_rules, local.conditions_network_access_policy_set_authorization_rules, local.conditions_network_access_policy_set_authorization_exception_rules, local.conditions_network_access_authorization_global_exception_rules))
   known_conditions   = [for condition in try(local.ise.network_access.policy_elements.conditions, []) : condition.name]
   unknown_conditions = setsubtract(local.unique_conditions, local.known_conditions)
 }
