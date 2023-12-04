@@ -81,13 +81,13 @@ module "ise" {
 | [ise_allowed_protocols_tacacs.allowed_protocols_tacacs](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/allowed_protocols_tacacs) | resource |
 | [ise_authorization_profile.authorization_profile](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/authorization_profile) | resource |
 | [ise_certificate_authentication_profile.certificate_authentication_profile](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/certificate_authentication_profile) | resource |
-| [ise_device_administration_authentication_rule.device_administration_authentication_rule](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/device_administration_authentication_rule) | resource |
-| [ise_device_administration_authorization_exception_rule.device_administration_authorization_exception_rule](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/device_administration_authorization_exception_rule) | resource |
-| [ise_device_administration_authorization_global_exception_rule.device_administration_authorization_global_exception_rule](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/device_administration_authorization_global_exception_rule) | resource |
-| [ise_device_administration_authorization_rule.device_administration_authorization_rule](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/device_administration_authorization_rule) | resource |
-| [ise_device_administration_condition.device_administration_condition](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/device_administration_condition) | resource |
-| [ise_device_administration_policy_set.device_administration_policy_set](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/device_administration_policy_set) | resource |
-| [ise_device_administration_time_and_date_condition.device_administration_time_and_date_condition](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/device_administration_time_and_date_condition) | resource |
+| [ise_device_admin_authentication_rule.device_admin_authentication_rule](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/device_admin_authentication_rule) | resource |
+| [ise_device_admin_authorization_exception_rule.device_admin_authorization_exception_rule](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/device_admin_authorization_exception_rule) | resource |
+| [ise_device_admin_authorization_global_exception_rule.device_admin_authorization_global_exception_rule](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/device_admin_authorization_global_exception_rule) | resource |
+| [ise_device_admin_authorization_rule.device_admin_authorization_rule](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/device_admin_authorization_rule) | resource |
+| [ise_device_admin_condition.device_admin_condition](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/device_admin_condition) | resource |
+| [ise_device_admin_policy_set.device_admin_policy_set](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/device_admin_policy_set) | resource |
+| [ise_device_admin_time_and_date_condition.device_admin_time_and_date_condition](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/device_admin_time_and_date_condition) | resource |
 | [ise_downloadable_acl.downloadable_acl](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/downloadable_acl) | resource |
 | [ise_endpoint_identity_group.endpoint_identity_group](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/endpoint_identity_group) | resource |
 | [ise_internal_user.internal_user](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/internal_user) | resource |
@@ -110,7 +110,7 @@ module "ise" {
 | [ise_trustsec_security_group_acl.trustsec_security_group_acl](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/trustsec_security_group_acl) | resource |
 | [ise_user_identity_group.user_identity_group](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/user_identity_group) | resource |
 | [local_sensitive_file.defaults](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/sensitive_file) | resource |
-| [ise_device_administration_condition.device_administration_condition](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/device_administration_condition) | data source |
+| [ise_device_admin_condition.device_admin_condition](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/device_admin_condition) | data source |
 | [ise_endpoint_identity_group.endpoint_identity_group](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/endpoint_identity_group) | data source |
 | [ise_network_access_condition.network_access_condition](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/network_access_condition) | data source |
 | [ise_trustsec_security_group.trustsec_security_group](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/trustsec_security_group) | data source |

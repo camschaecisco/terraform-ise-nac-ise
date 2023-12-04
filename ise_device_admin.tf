@@ -1,4 +1,4 @@
-resource "ise_device_administration_condition" "device_administration_condition" {
+resource "ise_device_admin_condition" "device_admin_condition" {
   for_each = { for condition in try(local.ise.device_administration.policy_elements.conditions, []) : condition.name => condition if var.manage_device_administration }
 
   condition_type  = try(each.value.type, local.defaults.ise.device_administration.policy_elements.conditions.type, null)
@@ -68,7 +68,7 @@ resource "ise_tacacs_command_set" "tacacs_command_set" {
   }], null)
 }
 
-resource "ise_device_administration_time_and_date_condition" "device_administration_time_and_date_condition" {
+resource "ise_device_admin_time_and_date_condition" "device_admin_time_and_date_condition" {
   for_each = { for c in try(local.ise.device_administration.policy_elements.time_data_conditions, []) : c.name => c if var.manage_device_administration }
 
   name                 = each.key
@@ -133,13 +133,13 @@ locals {
   unknown_conditions_device_administration = setsubtract(local.unique_conditions_device_administration, local.known_conditions_device_administration)
 }
 
-data "ise_device_administration_condition" "device_administration_condition" {
+data "ise_device_admin_condition" "device_admin_condition" {
   for_each = toset(local.unknown_conditions_device_administration)
 
   name = each.value
 }
 
-resource "ise_device_administration_policy_set" "device_administration_policy_set" {
+resource "ise_device_admin_policy_set" "device_admin_policy_set" {
   for_each = { for policy in try(local.ise.device_administration.policy_sets, []) : policy.name => policy if var.manage_device_administration }
 
   condition_type            = try(each.value.condition.type, local.defaults.ise.device_administration.policy_sets.condition.type, null)
@@ -147,7 +147,7 @@ resource "ise_device_administration_policy_set" "device_administration_policy_se
   condition_attribute_name  = try(each.value.condition.attribute_name, local.defaults.ise.device_administration.policy_sets.condition.attribute_name, null)
   condition_attribute_value = try(each.value.condition.attribute_value, local.defaults.ise.device_administration.policy_sets.condition.attribute_value, null)
   condition_dictionary_name = try(each.value.condition.dictionary_name, local.defaults.ise.device_administration.policy_sets.condition.dictionary_name, null)
-  condition_id              = contains(local.known_conditions_device_administration, try(each.value.condition.name, "")) ? ise_device_administration_condition.device_administration_condition[each.value.condition.name].id : try(data.ise_device_administration_condition.device_administration_condition[each.value.condition.name].id, null)
+  condition_id              = contains(local.known_conditions_device_administration, try(each.value.condition.name, "")) ? ise_device_admin_condition.device_admin_condition[each.value.condition.name].id : try(data.ise_device_admin_condition.device_admin_condition[each.value.condition.name].id, null)
   condition_operator        = try(each.value.condition.operator, local.defaults.ise.device_administration.policy_sets.condition.operator, null)
   description               = try(each.value.description, local.defaults.ise.device_administration.policy_sets.description)
   is_proxy                  = try(each.value.is_proxy, local.defaults.ise.device_administration.policy_sets.is_proxy)
@@ -163,7 +163,7 @@ resource "ise_device_administration_policy_set" "device_administration_policy_se
     dictionary_value = try(i.dictionary_value, null)
     is_negate        = try(i.is_negate, null)
     operator         = try(i.operator, null)
-    id               = contains(local.known_conditions_device_administration, try(i.name, "")) ? ise_device_administration_condition.device_administration_condition[i.name].id : try(data.ise_device_administration_condition.device_administration_condition[i.name].id, null)
+    id               = contains(local.known_conditions_device_administration, try(i.name, "")) ? ise_device_admin_condition.device_admin_condition[i.name].id : try(data.ise_device_admin_condition.device_admin_condition[i.name].id, null)
     children = try([for j in i.children : {
       attribute_name   = try(j.attribute_name, null)
       attribute_value  = try(j.attribute_value, null)
@@ -172,7 +172,7 @@ resource "ise_device_administration_policy_set" "device_administration_policy_se
       dictionary_value = try(j.dictionary_value, null)
       is_negate        = try(j.is_negate, null)
       operator         = try(j.operator, null)
-      id               = contains(local.known_conditions_device_administration, try(j.name, "")) ? ise_device_administration_condition.device_administration_condition[j.name].id : try(data.ise_device_administration_condition.device_administration_condition[j.name].id, null)
+      id               = contains(local.known_conditions_device_administration, try(j.name, "")) ? ise_device_admin_condition.device_admin_condition[j.name].id : try(data.ise_device_admin_condition.device_admin_condition[j.name].id, null)
     }], null)
   }], null)
 
@@ -190,7 +190,7 @@ locals {
         default                   = try(rule.default, local.defaults.ise.device_administration.policy_sets.authentication_rules.default, null)
         state                     = try(rule.state, local.defaults.ise.device_administration.policy_sets.authentication_rules.state, null)
         condition_type            = try(rule.condition.type, local.defaults.ise.device_administration.policy_sets.authentication_rules.condition.type, null)
-        condition_id              = contains(local.known_conditions_device_administration, try(rule.condition.name, "")) ? ise_device_administration_condition.device_administration_condition[rule.condition.name].id : try(data.ise_device_administration_condition.device_administration_condition[rule.condition.name].id, null)
+        condition_id              = contains(local.known_conditions_device_administration, try(rule.condition.name, "")) ? ise_device_admin_condition.device_admin_condition[rule.condition.name].id : try(data.ise_device_admin_condition.device_admin_condition[rule.condition.name].id, null)
         condition_is_negate       = try(rule.condition.is_negate, local.defaults.ise.device_administration.policy_sets.authentication_rules.condition.is_negate, null)
         condition_attribute_name  = try(rule.condition.attribute_name, local.defaults.ise.device_administration.policy_sets.authentication_rules.condition.attribute_name, null)
         condition_attribute_value = try(rule.condition.attribute_value, local.defaults.ise.device_administration.policy_sets.authentication_rules.condition.attribute_value, null)
@@ -208,7 +208,7 @@ locals {
           dictionary_value = try(i.dictionary_value, null)
           is_negate        = try(i.is_negate, null)
           operator         = try(i.operator, null)
-          id               = contains(local.known_conditions_device_administration, try(i.name, "")) ? ise_device_administration_condition.device_administration_condition[i.name].id : try(data.ise_device_administration_condition.device_administration_condition[i.name].id, null)
+          id               = contains(local.known_conditions_device_administration, try(i.name, "")) ? ise_device_admin_condition.device_admin_condition[i.name].id : try(data.ise_device_admin_condition.device_admin_condition[i.name].id, null)
           children = try([for j in i.children : {
             attribute_name   = try(j.attribute_name, null)
             attribute_value  = try(j.attribute_value, null)
@@ -217,7 +217,7 @@ locals {
             dictionary_value = try(j.dictionary_value, null)
             is_negate        = try(j.is_negate, null)
             operator         = try(j.operator, null)
-            id               = contains(local.known_conditions_device_administration, try(j.name, "")) ? ise_device_administration_condition.device_administration_condition[j.name].id : try(data.ise_device_administration_condition.device_administration_condition[j.name].id, null)
+            id               = contains(local.known_conditions_device_administration, try(j.name, "")) ? ise_device_admin_condition.device_admin_condition[j.name].id : try(data.ise_device_admin_condition.device_admin_condition[j.name].id, null)
           }], null)
         }], null)
       }
@@ -225,7 +225,7 @@ locals {
   ])
 }
 
-resource "ise_device_administration_authentication_rule" "device_administration_authentication_rule" {
+resource "ise_device_admin_authentication_rule" "device_admin_authentication_rule" {
   for_each = { for rule in local.device_administration_authentication_rules : rule.key => rule if var.manage_device_administration }
 
   policy_set_id             = each.value.policy_set_id
@@ -258,7 +258,7 @@ locals {
         default                   = try(rule.default, local.defaults.ise.device_administration.policy_sets.authorization_rules.default, null)
         state                     = try(rule.state, local.defaults.ise.device_administration.policy_sets.authorization_rules.state, null)
         condition_type            = try(rule.condition.type, local.defaults.ise.device_administration.policy_sets.authorization_rules.condition.type, null)
-        condition_id              = contains(local.known_conditions_device_administration, try(rule.condition.name, "")) ? ise_device_administration_condition.device_administration_condition[rule.condition.name].id : try(data.ise_device_administration_condition.device_administration_condition[rule.condition.name].id, null)
+        condition_id              = contains(local.known_conditions_device_administration, try(rule.condition.name, "")) ? ise_device_admin_condition.device_admin_condition[rule.condition.name].id : try(data.ise_device_admin_condition.device_admin_condition[rule.condition.name].id, null)
         condition_is_negate       = try(rule.condition.is_negate, local.defaults.ise.device_administration.policy_sets.authorization_rules.condition.is_negate, null)
         condition_attribute_name  = try(rule.condition.attribute_name, local.defaults.ise.device_administration.policy_sets.authorization_rules.condition.attribute_name, null)
         condition_attribute_value = try(rule.condition.attribute_value, local.defaults.ise.device_administration.policy_sets.authorization_rules.condition.attribute_value, null)
@@ -274,7 +274,7 @@ locals {
           dictionary_value = try(i.dictionary_value, null)
           is_negate        = try(i.is_negate, null)
           operator         = try(i.operator, null)
-          id               = contains(local.known_conditions_device_administration, try(i.name, "")) ? ise_device_administration_condition.device_administration_condition[i.name].id : try(data.ise_device_administration_condition.device_administration_condition[i.name].id, null)
+          id               = contains(local.known_conditions_device_administration, try(i.name, "")) ? ise_device_admin_condition.device_admin_condition[i.name].id : try(data.ise_device_admin_condition.device_admin_condition[i.name].id, null)
           children = try([for j in i.children : {
             attribute_name   = try(j.attribute_name, null)
             attribute_value  = try(j.attribute_value, null)
@@ -283,7 +283,7 @@ locals {
             dictionary_value = try(j.dictionary_value, null)
             is_negate        = try(j.is_negate, null)
             operator         = try(j.operator, null)
-            id               = contains(local.known_conditions_device_administration, try(j.name, "")) ? ise_device_administration_condition.device_administration_condition[j.name].id : try(data.ise_device_administration_condition.device_administration_condition[j.name].id, null)
+            id               = contains(local.known_conditions_device_administration, try(j.name, "")) ? ise_device_admin_condition.device_admin_condition[j.name].id : try(data.ise_device_admin_condition.device_admin_condition[j.name].id, null)
           }], null)
         }], null)
       }
@@ -291,7 +291,7 @@ locals {
   ])
 }
 
-resource "ise_device_administration_authorization_rule" "device_administration_authorization_rule" {
+resource "ise_device_admin_authorization_rule" "device_admin_authorization_rule" {
   for_each = { for rule in local.device_administration_authorization_rules : rule.key => rule if var.manage_device_administration }
 
   policy_set_id             = each.value.policy_set_id
@@ -324,7 +324,7 @@ locals {
         default                   = try(rule.default, local.defaults.ise.device_administration.policy_sets.authorization_exception_rules.default, null)
         state                     = try(rule.state, local.defaults.ise.device_administration.policy_sets.authorization_exception_rules.state, null)
         condition_type            = try(rule.condition.type, local.defaults.ise.device_administration.policy_sets.authorization_exception_rules.condition.type, null)
-        condition_id              = contains(local.known_conditions_device_administration, try(rule.condition.name, "")) ? ise_device_administration_condition.device_administration_condition[rule.condition.name].id : try(data.ise_device_administration_condition.device_administration_condition[rule.condition.name].id, null)
+        condition_id              = contains(local.known_conditions_device_administration, try(rule.condition.name, "")) ? ise_device_admin_condition.device_admin_condition[rule.condition.name].id : try(data.ise_device_admin_condition.device_admin_condition[rule.condition.name].id, null)
         condition_is_negate       = try(rule.condition.is_negate, local.defaults.ise.device_administration.policy_sets.authorization_exception_rules.condition.is_negate, null)
         condition_attribute_name  = try(rule.condition.attribute_name, local.defaults.ise.device_administration.policy_sets.authorization_exception_rules.condition.attribute_name, null)
         condition_attribute_value = try(rule.condition.attribute_value, local.defaults.ise.device_administration.policy_sets.authorization_exception_rules.condition.attribute_value, null)
@@ -340,7 +340,7 @@ locals {
           dictionary_value = try(i.dictionary_value, null)
           is_negate        = try(i.is_negate, null)
           operator         = try(i.operator, null)
-          id               = contains(local.known_conditions_device_administration, try(i.name, "")) ? ise_device_administration_condition.device_administration_condition[i.name].id : try(data.ise_device_administration_condition.device_administration_condition[i.name].id, null)
+          id               = contains(local.known_conditions_device_administration, try(i.name, "")) ? ise_device_admin_condition.device_admin_condition[i.name].id : try(data.ise_device_admin_condition.device_admin_condition[i.name].id, null)
           children = try([for j in i.children : {
             attribute_name   = try(j.attribute_name, null)
             attribute_value  = try(j.attribute_value, null)
@@ -349,7 +349,7 @@ locals {
             dictionary_value = try(j.dictionary_value, null)
             is_negate        = try(j.is_negate, null)
             operator         = try(j.operator, null)
-            id               = contains(local.known_conditions_device_administration, try(j.name, "")) ? ise_device_administration_condition.device_administration_condition[j.name].id : try(data.ise_device_administration_condition.device_administration_condition[j.name].id, null)
+            id               = contains(local.known_conditions_device_administration, try(j.name, "")) ? ise_device_admin_condition.device_admin_condition[j.name].id : try(data.ise_device_admin_condition.device_admin_condition[j.name].id, null)
           }], null)
         }], null)
       }
@@ -357,7 +357,7 @@ locals {
   ])
 }
 
-resource "ise_device_administration_authorization_exception_rule" "device_administration_authorization_exception_rule" {
+resource "ise_device_admin_authorization_exception_rule" "device_admin_authorization_exception_rule" {
   for_each = { for rule in local.device_administration_authorization_exception_rules : rule.key => rule if var.manage_device_administration }
 
   policy_set_id             = each.value.policy_set_id
@@ -379,7 +379,7 @@ resource "ise_device_administration_authorization_exception_rule" "device_admini
   depends_on = [ise_tacacs_profile.tacacs_profile, ise_tacacs_command_set.tacacs_command_set]
 }
 
-resource "ise_device_administration_authorization_global_exception_rule" "device_administration_authorization_global_exception_rule" {
+resource "ise_device_admin_authorization_global_exception_rule" "device_admin_authorization_global_exception_rule" {
   for_each = { for rule in try(local.ise.device_administration.authorization_global_exception_rules, []) : rule.key => rule if var.manage_device_administration }
 
   name                      = each.value.name
@@ -387,7 +387,7 @@ resource "ise_device_administration_authorization_global_exception_rule" "device
   default                   = try(each.value.default, local.defaults.ise.device_administration.authorization_global_exception_rules.default, null)
   state                     = try(each.value.state, local.defaults.ise.device_administration.authorization_global_exception_rules.state, null)
   condition_type            = try(each.value.condition.type, local.defaults.ise.device_administration.authorization_global_exception_rules.condition.type, null)
-  condition_id              = contains(local.known_conditions_device_administration, try(each.value.condition.name, "")) ? ise_device_administration_condition.device_administration_condition[each.value.condition.name].id : try(data.ise_device_administration_condition.device_administration_condition[each.value.condition.name].id, null)
+  condition_id              = contains(local.known_conditions_device_administration, try(each.value.condition.name, "")) ? ise_device_admin_condition.device_admin_condition[each.value.condition.name].id : try(data.ise_device_admin_condition.device_admin_condition[each.value.condition.name].id, null)
   condition_is_negate       = try(each.value.condition.is_negate, local.defaults.ise.device_administration.authorization_global_exception_rules.condition.is_negate, null)
   condition_attribute_name  = try(each.value.condition.attribute_name, local.defaults.ise.device_administration.authorization_global_exception_rules.condition.attribute_name, null)
   condition_attribute_value = try(each.value.condition.attribute_value, local.defaults.ise.device_administration.authorization_global_exception_rules.condition.attribute_value, null)
@@ -403,7 +403,7 @@ resource "ise_device_administration_authorization_global_exception_rule" "device
     dictionary_value = try(i.dictionary_value, null)
     is_negate        = try(i.is_negate, null)
     operator         = try(i.operator, null)
-    id               = contains(local.known_conditions_device_administration, try(i.name, "")) ? ise_device_administration_condition.device_administration_condition[i.name].id : try(data.ise_device_administration_condition.device_administration_condition[i.name].id, null)
+    id               = contains(local.known_conditions_device_administration, try(i.name, "")) ? ise_device_admin_condition.device_admin_condition[i.name].id : try(data.ise_device_admin_condition.device_admin_condition[i.name].id, null)
     children = try([for j in i.children : {
       attribute_name   = try(j.attribute_name, null)
       attribute_value  = try(j.attribute_value, null)
@@ -412,7 +412,7 @@ resource "ise_device_administration_authorization_global_exception_rule" "device
       dictionary_value = try(j.dictionary_value, null)
       is_negate        = try(j.is_negate, null)
       operator         = try(j.operator, null)
-      id               = contains(local.known_conditions_device_administration, try(j.name, "")) ? ise_device_administration_condition.device_administration_condition[j.name].id : try(data.ise_device_administration_condition.device_administration_condition[j.name].id, null)
+      id               = contains(local.known_conditions_device_administration, try(j.name, "")) ? ise_device_admin_condition.device_admin_condition[j.name].id : try(data.ise_device_admin_condition.device_admin_condition[j.name].id, null)
     }], null)
   }], null)
 
