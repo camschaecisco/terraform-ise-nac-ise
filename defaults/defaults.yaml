@@ -1,19 +1,207 @@
 defaults:
   ise:
+    system:
+      repositories:
+        enable_pki: false
+      licenses:
+        status: ENABLED
+    identity_management:
+      endpoint_identity_groups:
+        description: ""
+      user_identity_groups:
+        description: ""
+      internal_users:
+        description: ""
+        enabled: true
+        change_password: true
+        password_id_store: Internal Users
+      certificate_authentication_profiles:
+        description: ""
+        allowed_as_user_name: false
+        match_mode: NEVER
+        username_from: CERTIFICATE
+        certificate_attribute_name: SUBJECT_COMMON_NAME
+        external_identity_store_name: "[not applicable]"
+    trust_sec:
+      security_groups:
+        description: ""
+        propagate_to_apic: false
+      security_group_acls:
+        description: ""
+        ip_version: IPV4
+      ip_sgt_mapping_groups:
+        description: ""
+        deploy_type: ALL
+      ip_sgt_mappings:
+        description: ""
+        deploy_type: ALL
+      matrix_entries:
+        rule_status: ENABLED
     network_access:
       policy_elements:
+        authorization_profiles:
+          description: ""
+          agentless_posture: false
+          access_type: ACCESS_ACCEPT
+          track_movement: false
+          service_template: false
+          easywired_session_candidate: false
+          voice_domain_permission: false
+          neat: false
+          web_auth: false
         conditions:
           is_negate: false
         allowed_protocols:
+          description: ""
           process_host_lookup: true
           allow_pap_ascii: true
           allow_chap: false
           allow_ms_chap_v1: false
           allow_ms_chap_v2: false
           allow_eap_md5: true
+          allow_leap: false
           allow_eap_tls: true
-          eap_tls_allow_auth_of_expired_certs: false
-          eap_tls_enable_stateless_session_resume: false
+          allow_eap_ttls: true
+          allow_eap_fast: true
+          allow_peap: true
+          allow_teap: true
+          allow_preferred_eap_protocol: false
+          eap_tls_l_bit: false
+          allow_weak_ciphers_for_eap: false
+          require_message_auth: false
+          five_g: false
+          teap:
+            allow_teap_eap_ms_chap_v2: true
+            allow_teap_eap_ms_chap_v2_pwd_change: true
+            allow_teap_eap_ms_chap_v2_pwd_change_retries: 3
+            allow_teap_eap_tls: true
+            allow_teap_eap_tls_auth_of_expired_certs: false
+            accept_client_cert_during_tunnel_est: true
+            enable_eap_chaining: false
+            allow_downgrade_msk: true
+            request_basic_pwd_auth: false
+          eap_ttls:
+            eap_ttls_pap_ascii: true
+            eap_ttls_chap: true
+            eap_ttls_ms_chap_v1: true
+            eap_ttls_ms_chap_v2: true
+            eap_ttls_eap_md5: true
+            eap_ttls_eap_ms_chap_v2: true
+            eap_ttls_eap_ms_chap_v2_pwd_change: true
+            eap_ttls_eap_ms_chap_v2_pwd_change_retries: 1
+          eap_tls:
+            allow_eap_tls_auth_of_expired_certs: false
+            eap_tls_enable_stateless_session_resume: false
+          eap_fast:
+            allow_eap_fast_eap_ms_chap_v2: true
+            allow_eap_fast_eap_ms_chap_v2_pwd_change: true
+            allow_eap_fast_eap_ms_chap_v2_pwd_change_retries: 1
+            allow_eap_fast_eap_gtc: true
+            allow_eap_fast_eap_gtc_pwd_change: true
+            allow_eap_fast_eap_gtc_pwd_change_retries: 1
+            allow_eap_fast_eap_tls: true
+            allow_eap_fast_eap_tls_auth_of_expired_certs: false
+            eap_fast_use_pacs: true
+            eap_fast_use_pacs_tunnel_pac_ttl: 90
+            eap_fast_use_pacs_tunnel_pac_ttl_units: DAYS
+            eap_fast_use_pacs_use_proactive_pac_update_precentage: 10
+            eap_fast_use_pacs_allow_anonym_provisioning: false
+            eap_fast_use_pacs_allow_authen_provisioning: false
+            eap_fast_use_pacs_accept_client_cert: false
+            eap_fast_use_pacs_server_returns: false
+            eap_fast_use_pacs_allow_machine_authentication: false
+            eap_fast_use_pacs_machine_pac_ttl: 1
+            eap_fast_use_pacs_machine_pac_ttl_units: WEEKS
+            eap_fast_use_pacs_stateless_session_resume: false
+            eap_fast_enable_eap_chaining: false
+        downloadable_acls:
+          description: ""
+          dacl_type: IPV4
+        dictionaries:
+          description: ""
+          attribute_type: ENTITY_ATTR
+        time_date_conditions:
+          description: ""
+          is_negate: false
       policy_sets:
+        description: ""
+        default: false
+        state: enabled
+        is_proxy: false
+        condition:
+          is_negate: false
+        authentication_rules:
+          default: false
+          state: enabled
+          if_auth_fail: REJECT
+          if_user_not_found: REJECT
+          if_process_fail: DROP
+          condition:
+            is_negate: false
+        authorization_rules:
+          default: false
+          state: enabled
+          condition:
+            is_negate: false
+        authorization_exception_rules:
+          default: false
+          state: enabled
+          condition:
+            is_negate: false
+      authorization_global_exception_rules:
+        default: false
+        state: enabled
+        condition:
+          is_negate: false
+    device_administration:
+      policy_elements:
+        conditions:
+          is_negate: false
+        allowed_protocols:
+          description: ""
+          allow_pap_ascii: true
+          allow_chap: false
+          allow_ms_chap_v1: false
+        tacacs_profiles:
+          description: ""
+          session_attributes:
+            type: MANDATORY
+        tacacs_command_sets:
+          description: ""
+          permit_unmatched: false
+          commands:
+            grant: PERMIT
+            arguments: ""
+        time_date_conditions:
+          description: ""
+          is_negate: false
+      policy_sets:
+        description: ""
+        default: false
+        state: enabled
+        is_proxy: false
+        condition:
+          is_negate: false
+        authentication_rules:
+          default: false
+          state: enabled
+          if_auth_fail: REJECT
+          if_user_not_found: REJECT
+          if_process_fail: DROP
+          condition:
+            is_negate: false
+        authorization_rules:
+          default: false
+          state: enabled
+          condition:
+            is_negate: false
+        authorization_exception_rules:
+          default: false
+          state: enabled
+          condition:
+            is_negate: false
+      authorization_global_exception_rules:
+        default: false
+        state: enabled
         condition:
           is_negate: false
