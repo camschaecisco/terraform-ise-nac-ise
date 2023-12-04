@@ -51,6 +51,10 @@ defaults:
           web_auth: false
         conditions:
           is_negate: false
+          conditions:
+            is_negate: false
+            conditions:
+              is_negate: false
         allowed_protocols:
           description: ""
           process_host_lookup: true
@@ -130,6 +134,10 @@ defaults:
         is_proxy: false
         condition:
           is_negate: false
+          conditions:
+            is_negate: false
+            conditions:
+              is_negate: false
         authentication_rules:
           default: false
           state: enabled
@@ -138,21 +146,37 @@ defaults:
           if_process_fail: DROP
           condition:
             is_negate: false
+            conditions:
+              is_negate: false
+              conditions:
+                is_negate: false
         authorization_rules:
           default: false
           state: enabled
           condition:
             is_negate: false
+            conditions:
+              is_negate: false
+              conditions:
+                is_negate: false
         authorization_exception_rules:
           default: false
           state: enabled
           condition:
             is_negate: false
+            conditions:
+              is_negate: false
+              conditions:
+                is_negate: false
       authorization_global_exception_rules:
         default: false
         state: enabled
         condition:
           is_negate: false
+          conditions:
+            is_negate: false
+            conditions:
+              is_negate: false
     device_administration:
       policy_elements:
         conditions:
@@ -182,6 +206,10 @@ defaults:
         is_proxy: false
         condition:
           is_negate: false
+          conditions:
+            is_negate: false
+            conditions:
+              is_negate: false
         authentication_rules:
           default: false
           state: enabled
@@ -190,18 +218,34 @@ defaults:
           if_process_fail: DROP
           condition:
             is_negate: false
+            conditions:
+              is_negate: false
+              conditions:
+                is_negate: false
         authorization_rules:
           default: false
           state: enabled
           condition:
             is_negate: false
+            conditions:
+              is_negate: false
+              conditions:
+                is_negate: false
         authorization_exception_rules:
           default: false
           state: enabled
           condition:
             is_negate: false
+            conditions:
+              is_negate: false
+              conditions:
+                is_negate: false
       authorization_global_exception_rules:
         default: false
         state: enabled
         condition:
           is_negate: false
+          conditions:
+            is_negate: false
+            conditions:
+              is_negate: false
