@@ -1,8 +1,6 @@
 defaults:
   ise:
     system:
-      repositories:
-        enable_pki: false
       licenses:
         status: ENABLED
     identity_management:
