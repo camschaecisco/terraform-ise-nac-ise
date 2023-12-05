@@ -1267,7 +1267,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_19" {
   for_each = { for rule in local.network_access_authorization_rules : rule.key => rule if var.manage_network_access && rule.rank == 19 }
-  
+
   policy_set_id             = each.value.policy_set_id
   name                      = each.value.name
   rank                      = each.value.rank
@@ -1286,7 +1286,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
 
   depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_18, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
 }
-    
+
 locals {
   network_access_authorization_exception_rules = flatten([
     for ps in try(local.ise.network_access.policy_sets, []) : [
@@ -1331,8 +1331,8 @@ locals {
   ])
 }
 
-resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule" {
-  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access }
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_0" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && (rule.rank == 0 || rule.rank == null) }
 
   policy_set_id             = each.value.policy_set_id
   name                      = each.value.name
@@ -1353,42 +1353,880 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   depends_on = [ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
 }
 
-resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule" {
-  for_each = { for rule in try(local.ise.network_access.authorization_global_exception_rules, []) : rule.key => rule if var.manage_network_access }
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_1" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 1 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_0, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_2" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 2 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_1, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_3" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 3 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_2, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_4" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 4 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_3, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_5" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 5 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_4, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_6" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 6 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_5, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_7" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 7 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_6, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_8" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 8 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_7, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_9" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 9 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_8, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_10" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 10 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_9, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_11" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 11 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_10, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_12" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 12 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_11, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_13" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 13 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_12, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_14" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 14 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_13, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_15" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 15 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_14, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_16" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 16 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_15, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_17" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 17 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_16, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_18" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 18 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_17, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_19" {
+  for_each = { for rule in local.network_access_authorization_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 19 }
+
+  policy_set_id             = each.value.policy_set_id
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_18, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+locals {
+  network_access_authorization_global_exception_rules = [
+    for rule in try(local.ise.network_access.authorization_global_exception_rules, []) : {
+      name                      = rule.name
+      rank                      = try(rule.rank, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.rank, null)
+      default                   = try(rule.default, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.default, null)
+      state                     = try(rule.state, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.state, null)
+      condition_type            = try(rule.condition.type, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.condition.type, null)
+      condition_id              = contains(local.known_conditions_network_access, try(rule.condition.name, "")) ? ise_network_access_condition.network_access_condition[rule.condition.name].id : try(data.ise_network_access_condition.network_access_condition[rule.condition.name].id, null)
+      condition_is_negate       = try(rule.condition.is_negate, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.condition.is_negate, null)
+      condition_attribute_name  = try(rule.condition.attribute_name, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.condition.attribute_name, null)
+      condition_attribute_value = try(rule.condition.attribute_value, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.condition.attribute_value, null)
+      condition_dictionary_name = try(rule.condition.dictionary_name, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.condition.dictionary_name, null)
+      condition_operator        = try(rule.condition.operator, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.condition.operator, null)
+      profiles                  = try(rule.profiles, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.profiles, null)
+      security_group            = try(rule.security_group, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.security_group, null)
+      children = try([for i in rule.condition.children : {
+        attribute_name   = try(i.attribute_name, null)
+        attribute_value  = try(i.attribute_value, null)
+        condition_type   = try(i.type, null)
+        dictionary_name  = try(i.dictionary_name, null)
+        dictionary_value = try(i.dictionary_value, null)
+        is_negate        = try(i.is_negate, null)
+        operator         = try(i.operator, null)
+        id               = contains(local.known_conditions_network_access, try(i.name, "")) ? ise_network_access_condition.network_access_condition[i.name].id : try(data.ise_network_access_condition.network_access_condition[i.name].id, null)
+        children = try([for j in i.children : {
+          attribute_name   = try(j.attribute_name, null)
+          attribute_value  = try(j.attribute_value, null)
+          condition_type   = try(j.type, null)
+          dictionary_name  = try(j.dictionary_name, null)
+          dictionary_value = try(j.dictionary_value, null)
+          is_negate        = try(j.is_negate, null)
+          operator         = try(j.operator, null)
+          id               = contains(local.known_conditions_network_access, try(j.name, "")) ? ise_network_access_condition.network_access_condition[j.name].id : try(data.ise_network_access_condition.network_access_condition[j.name].id, null)
+        }], null)
+      }], null)
+    }
+  ]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_0" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && (rule.rank == 0 || rule.rank == null) }
 
   name                      = each.value.name
-  rank                      = try(each.value.rank, local.defaults.ise.network_access.authorization_global_exception_rules.rank, null)
-  default                   = try(each.value.default, local.defaults.ise.network_access.authorization_global_exception_rules.default, null)
-  state                     = try(each.value.state, local.defaults.ise.network_access.authorization_global_exception_rules.state, null)
-  condition_type            = try(each.value.condition.type, local.defaults.ise.network_access.authorization_global_exception_rules.condition.type, null)
-  condition_id              = contains(local.known_conditions_network_access, try(each.value.condition.name, "")) ? ise_network_access_condition.network_access_condition[each.value.condition.name].id : try(data.ise_network_access_condition.network_access_condition[each.value.condition.name].id, null)
-  condition_is_negate       = try(each.value.condition.is_negate, local.defaults.ise.network_access.authorization_global_exception_rules.condition.is_negate, null)
-  condition_attribute_name  = try(each.value.condition.attribute_name, local.defaults.ise.network_access.authorization_global_exception_rules.condition.attribute_name, null)
-  condition_attribute_value = try(each.value.condition.attribute_value, local.defaults.ise.network_access.authorization_global_exception_rules.condition.attribute_value, null)
-  condition_dictionary_name = try(each.value.condition.dictionary_name, local.defaults.ise.network_access.authorization_global_exception_rules.condition.dictionary_name, null)
-  condition_operator        = try(each.value.condition.operator, local.defaults.ise.network_access.authorization_global_exception_rules.condition.operator, null)
-  profiles                  = try(each.value.profiles, local.defaults.ise.network_access.authorization_global_exception_rules.profiles, null)
-  security_group            = try(each.value.security_group, local.defaults.ise.network_access.authorization_global_exception_rules.security_group, null)
-  children = try([for i in each.value.condition.children : {
-    attribute_name   = try(i.attribute_name, null)
-    attribute_value  = try(i.attribute_value, null)
-    condition_type   = try(i.type, null)
-    dictionary_name  = try(i.dictionary_name, null)
-    dictionary_value = try(i.dictionary_value, null)
-    is_negate        = try(i.is_negate, null)
-    operator         = try(i.operator, null)
-    id               = contains(local.known_conditions_network_access, try(i.name, "")) ? ise_network_access_condition.network_access_condition[i.name].id : try(data.ise_network_access_condition.network_access_condition[i.name].id, null)
-    children = try([for j in i.children : {
-      attribute_name   = try(j.attribute_name, null)
-      attribute_value  = try(j.attribute_value, null)
-      condition_type   = try(j.type, null)
-      dictionary_name  = try(j.dictionary_name, null)
-      dictionary_value = try(j.dictionary_value, null)
-      is_negate        = try(j.is_negate, null)
-      operator         = try(j.operator, null)
-      id               = contains(local.known_conditions_network_access, try(j.name, "")) ? ise_network_access_condition.network_access_condition[j.name].id : try(data.ise_network_access_condition.network_access_condition[j.name].id, null)
-    }], null)
-  }], null)
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
 
   depends_on = [ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_1" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 1 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_0, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_2" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 2 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_1, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_3" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 3 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_2, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_4" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 4 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_3, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_5" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 5 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_4, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_6" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 6 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_5, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_7" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 7 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_6, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_8" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 8 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_7, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_9" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 9 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_8, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_10" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 10 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_9, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_11" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 11 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_10, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_12" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 12 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_11, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_13" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 13 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_12, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_14" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 14 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_13, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_15" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 15 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_14, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_16" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 16 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_15, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_17" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 17 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_16, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_18" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 18 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_17, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+}
+
+resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_19" {
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 19 }
+
+  name                      = each.value.name
+  rank                      = each.value.rank
+  default                   = each.value.default
+  state                     = each.value.state
+  condition_type            = each.value.condition_type
+  condition_id              = each.value.condition_id
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_operator        = each.value.condition_operator
+  profiles                  = each.value.profiles
+  security_group            = each.value.security_group
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_18, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
 }
