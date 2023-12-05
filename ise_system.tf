@@ -15,6 +15,6 @@ resource "ise_license_tier_state" "license_tier_state" {
 
   licenses = [for license in try(local.ise.system.licenses, []) : {
     name   = license.name
-    status = license.status
+    status = try(license.status, local.defaults.ise.system.licenses.status, null)
   }]
 }
