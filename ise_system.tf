@@ -11,7 +11,7 @@ resource "ise_repository" "repository" {
 }
 
 resource "ise_license_tier_state" "license_tier_state" {
-  count = len(try(local.ise.system.licenses, [])) > 0 && var.manage_system ? 1 : 0
+  count = length(try(local.ise.system.licenses, [])) > 0 && var.manage_system ? 1 : 0
 
   licenses = [for license in try(local.ise.system.licenses, []) : {
     name   = license.name
