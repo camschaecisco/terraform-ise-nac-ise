@@ -68,7 +68,7 @@ resource "ise_trustsec_egress_matrix_cell" "trustsec_egress_matrix_cell" {
 
   source_sgt_id      = contains(local.known_sgts, each.value.source_sgt) ? ise_trustsec_security_group.trustsec_security_group[each.value.source_sgt].id : data.ise_trustsec_security_group.trustsec_security_group[each.value.source_sgt].id
   destination_sgt_id = contains(local.known_sgts, each.value.destination_sgt) ? ise_trustsec_security_group.trustsec_security_group[each.value.destination_sgt].id : data.ise_trustsec_security_group.trustsec_security_group[each.value.destination_sgt].id
-  matrix_cell_status = each.value.rule_status
+  matrix_cell_status = try(each.value.rule_status, local.defaults.ise.trust_sec.matrix_entries.rule_status, null)
   sgacls             = contains(local.known_sgacls, each.value.sgacl_name) ? [ise_trustsec_security_group_acl.trustsec_security_group_acl[each.value.sgacl_name].id] : try([data.ise_trustsec_security_group_acl.trustsec_security_group_acl[each.value.sgacl_name].id], [])
 
   lifecycle {
