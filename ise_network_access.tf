@@ -100,8 +100,8 @@ resource "ise_authorization_profile" "authorization_profile" {
   reauthentication_timer                                = try(each.value.reauthentication_timer, local.defaults.ise.network_access.policy_elements.authorization_profiles.reauthentication_timer, null)
   airespace_ipv6_acl                                    = try(each.value.airespace_ipv6_acl, local.defaults.ise.network_access.policy_elements.authorization_profiles.airespace_ipv6_acl, null)
   advanced_attributes = try([for i in each.value.advanced_attributes : {
-    attribute_left_dictionary_name  = try(split(":", i.attribute)[0], null)
-    attribute_left_name             = try(split(":", i.attribute)[1], null)
+    attribute_left_dictionary_name  = try(split(":", i.name)[0], null)
+    attribute_left_name             = try(split(":", i.name)[1], null)
     attribute_right_value_type      = try(split(":", i.value)[1], null) != null ? "AdvancedDictionaryAttribute" : "AttributeValue"
     attribute_right_dictionary_name = try(split(":", i.value)[1], null) != null ? split(":", i.value)[0] : null
     attribute_right_name            = try(split(":", i.value)[1], null) != null ? split(":", i.value)[1] : null
