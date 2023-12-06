@@ -1334,7 +1334,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_0, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_0]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_2" {
@@ -1356,7 +1356,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_1, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_1]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_3" {
@@ -1378,7 +1378,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_2, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_2]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_4" {
@@ -1400,7 +1400,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_3, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_3]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_5" {
@@ -1422,7 +1422,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_4, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_4]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_6" {
@@ -1444,7 +1444,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_5, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_5]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_7" {
@@ -1466,7 +1466,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_6, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_6]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_8" {
@@ -1488,7 +1488,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_7, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_7]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_9" {
@@ -1510,7 +1510,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_8, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_8]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_10" {
@@ -1532,7 +1532,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_9, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_9]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_11" {
@@ -1554,7 +1554,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_10, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_10]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_12" {
@@ -1576,7 +1576,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_11, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_11]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_13" {
@@ -1598,7 +1598,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_12, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_12]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_14" {
@@ -1620,7 +1620,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_13, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_13]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_15" {
@@ -1642,7 +1642,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_14, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_14]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_16" {
@@ -1664,7 +1664,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_15, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_15]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_17" {
@@ -1686,7 +1686,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_16, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_16]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_18" {
@@ -1708,7 +1708,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_17, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_17]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_19" {
@@ -1730,7 +1730,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_18, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_rule.network_access_authorization_rule_18]
 }
 
 locals {
@@ -1819,7 +1819,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_0, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_0]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_2" {
@@ -1841,7 +1841,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_1, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_1]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_3" {
@@ -1863,7 +1863,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_2, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_2]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_4" {
@@ -1885,7 +1885,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_3, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_3]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_5" {
@@ -1907,7 +1907,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_4, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_4]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_6" {
@@ -1929,7 +1929,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_5, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_5]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_7" {
@@ -1951,7 +1951,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_6, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_6]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_8" {
@@ -1973,7 +1973,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_7, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_7]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_9" {
@@ -1995,7 +1995,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_8, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_8]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_10" {
@@ -2017,7 +2017,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_9, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_9]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_11" {
@@ -2039,7 +2039,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_10, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_10]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_12" {
@@ -2061,7 +2061,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_11, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_11]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_13" {
@@ -2083,7 +2083,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_12, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_12]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_14" {
@@ -2105,7 +2105,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_13, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_13]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_15" {
@@ -2127,7 +2127,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_14, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_14]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_16" {
@@ -2149,7 +2149,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_15, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_15]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_17" {
@@ -2171,7 +2171,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_16, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_16]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_18" {
@@ -2193,7 +2193,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_17, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_17]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_19" {
@@ -2215,7 +2215,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_18, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_exception_rule.network_access_authorization_exception_rule_18]
 }
 
 locals {
@@ -2298,7 +2298,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_0, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_0]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_2" {
@@ -2319,7 +2319,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_1, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_1]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_3" {
@@ -2340,7 +2340,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_2, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_2]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_4" {
@@ -2361,7 +2361,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_3, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_3]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_5" {
@@ -2382,7 +2382,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_4, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_4]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_6" {
@@ -2403,7 +2403,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_5, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_5]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_7" {
@@ -2424,7 +2424,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_6, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_6]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_8" {
@@ -2445,7 +2445,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_7, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_7]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_9" {
@@ -2466,7 +2466,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_8, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_8]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_10" {
@@ -2487,7 +2487,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_9, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_9]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_11" {
@@ -2508,7 +2508,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_10, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_10]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_12" {
@@ -2529,7 +2529,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_11, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_11]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_13" {
@@ -2550,7 +2550,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_12, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_12]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_14" {
@@ -2571,7 +2571,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_13, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_13]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_15" {
@@ -2592,7 +2592,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_14, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_14]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_16" {
@@ -2613,7 +2613,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_15, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_15]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_17" {
@@ -2634,7 +2634,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_16, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_16]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_18" {
@@ -2655,7 +2655,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_17, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_17]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_19" {
@@ -2676,5 +2676,5 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_18, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_network_access_authorization_global_exception_rule.network_access_authorization_global_exception_rule_18]
 }
