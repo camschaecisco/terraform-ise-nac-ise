@@ -4,7 +4,7 @@ locals {
   known_sgts      = [for group in try(local.ise.trust_sec.security_groups, []) : group.name]
   unknown_sgts    = setsubtract(local.unique_sgts, local.known_sgts)
   unique_sgacls   = distinct([for key, value in local.trustsec_matrix : value.sgacl_name])
-  known_sgacls    = [for acl in local.ise.trust_sec.security_group_acls : acl.name]
+  known_sgacls    = [for acl in try(local.ise.trust_sec.security_group_acls, []) : acl.name]
   unknown_sgacls  = setsubtract(local.unique_sgacls, local.known_sgacls)
 }
 
