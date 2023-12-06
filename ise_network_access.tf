@@ -239,52 +239,494 @@ data "ise_network_access_condition" "network_access_condition" {
   name = each.value
 }
 
-resource "ise_network_access_policy_set" "network_access_policy_set" {
-  for_each = { for policy in try(local.ise.network_access.policy_sets, []) : policy.name => policy if var.manage_network_access }
+locals {
+  network_access_policy_sets = [
+    for ps in try(local.ise.network_access.policy_sets, []) : {
+      condition_type            = try(ps.condition.type, local.defaults.ise.network_access.policy_sets.condition.type, null)
+      condition_is_negate       = try(ps.condition.is_negate, local.defaults.ise.network_access.policy_sets.condition.is_negate, null)
+      condition_attribute_name  = try(ps.condition.attribute_name, local.defaults.ise.network_access.policy_sets.condition.attribute_name, null)
+      condition_attribute_value = try(ps.condition.attribute_value, local.defaults.ise.network_access.policy_sets.condition.attribute_value, null)
+      condition_dictionary_name = try(ps.condition.dictionary_name, local.defaults.ise.network_access.policy_sets.condition.dictionary_name, null)
+      condition_id              = contains(local.known_conditions_network_access, try(ps.condition.name, "")) ? ise_network_access_condition.network_access_condition[ps.condition.name].id : try(data.ise_network_access_condition.network_access_condition[ps.condition.name].id, null)
+      condition_operator        = try(ps.condition.operator, local.defaults.ise.network_access.policy_sets.condition.operator, null)
+      description               = try(ps.description, local.defaults.ise.network_access.policy_sets.description)
+      is_proxy                  = try(ps.is_proxy, local.defaults.ise.network_access.policy_sets.is_proxy)
+      name                      = ps.name
+      service_name              = try(ps.service_name, local.defaults.ise.network_access.policy_sets.service_name)
+      state                     = try(ps.state, local.defaults.ise.network_access.policy_sets.state)
+      rank                      = try(ps.rank, local.defaults.ise.network_access.policy_sets.rank, null)
+      children = try([for i in ps.condition.children : {
+        attribute_name   = try(i.attribute_name, null)
+        attribute_value  = try(i.attribute_value, null)
+        condition_type   = try(i.type, null)
+        dictionary_name  = try(i.dictionary_name, null)
+        dictionary_value = try(i.dictionary_value, null)
+        is_negate        = try(i.is_negate, null)
+        operator         = try(i.operator, null)
+        id               = contains(local.known_conditions_network_access, try(i.name, "")) ? ise_network_access_condition.network_access_condition[i.name].id : try(data.ise_network_access_condition.network_access_condition[i.name].id, null)
+        children = try([for j in i.children : {
+          attribute_name   = try(j.attribute_name, null)
+          attribute_value  = try(j.attribute_value, null)
+          condition_type   = try(j.type, null)
+          dictionary_name  = try(j.dictionary_name, null)
+          dictionary_value = try(j.dictionary_value, null)
+          is_negate        = try(j.is_negate, null)
+          operator         = try(j.operator, null)
+          id               = contains(local.known_conditions_network_access, try(j.name, "")) ? ise_network_access_condition.network_access_condition[j.name].id : try(data.ise_network_access_condition.network_access_condition[j.name].id, null)
+        }], null)
+      }], null)
+    }
+  ]
+}
 
-  condition_type            = try(each.value.condition.type, local.defaults.ise.network_access.policy_sets.condition.type, null)
-  condition_is_negate       = try(each.value.condition.is_negate, local.defaults.ise.network_access.policy_sets.condition.is_negate, null)
-  condition_attribute_name  = try(each.value.condition.attribute_name, local.defaults.ise.network_access.policy_sets.condition.attribute_name, null)
-  condition_attribute_value = try(each.value.condition.attribute_value, local.defaults.ise.network_access.policy_sets.condition.attribute_value, null)
-  condition_dictionary_name = try(each.value.condition.dictionary_name, local.defaults.ise.network_access.policy_sets.condition.dictionary_name, null)
-  condition_id              = contains(local.known_conditions_network_access, try(each.value.condition.name, "")) ? ise_network_access_condition.network_access_condition[each.value.condition.name].id : try(data.ise_network_access_condition.network_access_condition[each.value.condition.name].id, null)
-  condition_operator        = try(each.value.condition.operator, local.defaults.ise.network_access.policy_sets.condition.operator, null)
-  description               = try(each.value.description, local.defaults.ise.network_access.policy_sets.description)
-  is_proxy                  = try(each.value.is_proxy, local.defaults.ise.network_access.policy_sets.is_proxy)
-  name                      = each.key
-  service_name              = try(each.value.service_name, local.defaults.ise.network_access.policy_sets.service_name)
-  state                     = try(each.value.state, local.defaults.ise.network_access.policy_sets.state)
-  rank                      = try(each.value.rank, local.defaults.ise.network_access.policy_sets.rank, null)
-  children = try([for i in each.value.condition.children : {
-    attribute_name   = try(i.attribute_name, null)
-    attribute_value  = try(i.attribute_value, null)
-    condition_type   = try(i.type, null)
-    dictionary_name  = try(i.dictionary_name, null)
-    dictionary_value = try(i.dictionary_value, null)
-    is_negate        = try(i.is_negate, null)
-    operator         = try(i.operator, null)
-    id               = contains(local.known_conditions_network_access, try(i.name, "")) ? ise_network_access_condition.network_access_condition[i.name].id : try(data.ise_network_access_condition.network_access_condition[i.name].id, null)
-    children = try([for j in i.children : {
-      attribute_name   = try(j.attribute_name, null)
-      attribute_value  = try(j.attribute_value, null)
-      condition_type   = try(j.type, null)
-      dictionary_name  = try(j.dictionary_name, null)
-      dictionary_value = try(j.dictionary_value, null)
-      is_negate        = try(j.is_negate, null)
-      operator         = try(j.operator, null)
-      id               = contains(local.known_conditions_network_access, try(j.name, "")) ? ise_network_access_condition.network_access_condition[j.name].id : try(data.ise_network_access_condition.network_access_condition[j.name].id, null)
-    }], null)
-  }], null)
+resource "ise_network_access_policy_set" "network_access_policy_set_0" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && (ps.rank == 0 || ps.rank == null) }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
 
   depends_on = [ise_authorization_profile.authorization_profile, ise_allowed_protocols.allowed_protocols]
 }
 
+resource "ise_network_access_policy_set" "network_access_policy_set_1" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 1 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_0]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_2" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 2 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_1]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_3" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 3 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_2]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_4" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 4 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_3]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_5" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 5 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_4]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_6" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 6 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_5]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_7" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 7 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_6]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_8" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 8 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_7]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_9" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 9 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_8]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_10" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 10 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_9]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_11" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 11 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_10]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_12" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 12 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_11]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_13" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 13 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_12]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_14" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 14 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_13]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_15" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 15 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_14]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_16" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 16 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_15]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_17" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 17 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_16]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_18" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 18 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_17]
+}
+
+resource "ise_network_access_policy_set" "network_access_policy_set_19" {
+  for_each = { for ps in local.network_access_policy_sets : ps.name => ps if var.manage_network_access && ps.rank == 19 }
+
+  condition_type            = each.value.condition_type
+  condition_is_negate       = each.value.condition_is_negate
+  condition_attribute_name  = each.value.condition_attribute_name
+  condition_attribute_value = each.value.condition_attribute_value
+  condition_dictionary_name = each.value.condition_dictionary_name
+  condition_id              = each.value.condition_id
+  condition_operator        = each.value.condition_operator
+  description               = each.value.description
+  is_proxy                  = each.value.is_proxy
+  name                      = each.value.name
+  service_name              = each.value.service_name
+  state                     = each.value.state
+  rank                      = each.value.rank
+  children                  = each.value.children
+
+  depends_on = [ise_network_access_policy_set.network_access_policy_set_18]
+}
+
 locals {
+  network_access_policy_set_ids = merge(
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_0[ps.name].id if ps.rank == 0 || ps.rank == null },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_1[ps.name].id if ps.rank == 1 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_2[ps.name].id if ps.rank == 2 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_3[ps.name].id if ps.rank == 3 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_4[ps.name].id if ps.rank == 4 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_5[ps.name].id if ps.rank == 5 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_6[ps.name].id if ps.rank == 6 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_7[ps.name].id if ps.rank == 7 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_8[ps.name].id if ps.rank == 8 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_9[ps.name].id if ps.rank == 9 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_10[ps.name].id if ps.rank == 10 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_11[ps.name].id if ps.rank == 11 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_12[ps.name].id if ps.rank == 12 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_13[ps.name].id if ps.rank == 13 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_14[ps.name].id if ps.rank == 14 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_15[ps.name].id if ps.rank == 15 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_16[ps.name].id if ps.rank == 16 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_17[ps.name].id if ps.rank == 17 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_18[ps.name].id if ps.rank == 18 },
+    { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_19[ps.name].id if ps.rank == 19 },
+  )
   network_access_authentication_rules = flatten([
     for ps in try(local.ise.network_access.policy_sets, []) : [
       for rule in try(ps.authentication_rules, []) : {
         key                       = format("%s/%s", ps.name, rule.name)
-        policy_set_id             = ise_network_access_policy_set.network_access_policy_set[ps.name].id
+        policy_set_id             = local.network_access_policy_set_ids[ps.name]
         name                      = rule.name
         rank                      = try(rule.rank, local.defaults.ise.network_access.policy_sets.authentication_rules.rank, null)
         default                   = try(rule.default, local.defaults.ise.network_access.policy_sets.authentication_rules.default, null)
@@ -808,7 +1250,7 @@ locals {
     for ps in try(local.ise.network_access.policy_sets, []) : [
       for rule in try(ps.authorization_rules, []) : {
         key                       = format("%s/%s", ps.name, rule.name)
-        policy_set_id             = ise_network_access_policy_set.network_access_policy_set[ps.name].id
+        policy_set_id             = local.network_access_policy_set_ids[ps.name]
         name                      = rule.name
         rank                      = try(rule.rank, local.defaults.ise.network_access.policy_sets.authorization_rules.rank, null)
         default                   = try(rule.default, local.defaults.ise.network_access.policy_sets.authorization_rules.default, null)
@@ -1292,7 +1734,7 @@ locals {
     for ps in try(local.ise.network_access.policy_sets, []) : [
       for rule in try(ps.authorization_exception_rules, []) : {
         key                       = format("%s/%s", ps.name, rule.name)
-        policy_set_id             = ise_network_access_policy_set.network_access_policy_set[ps.name].id
+        policy_set_id             = local.network_access_policy_set_ids[ps.name]
         name                      = rule.name
         rank                      = try(rule.rank, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.rank, null)
         default                   = try(rule.default, local.defaults.ise.network_access.policy_sets.authorization_exception_rules.default, null)
