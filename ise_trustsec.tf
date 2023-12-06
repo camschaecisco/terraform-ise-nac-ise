@@ -1,6 +1,6 @@
 locals {
   trustsec_matrix = { for cell in try(local.ise.trust_sec.matrix_entries, []) : "${cell.source_sgt}-${cell.destination_sgt}" => cell if var.manage_trust_sec }
-  unique_sgts     = distinct(concat([for key, value in local.trustsec_matrix : value.source_sgt], [for key, value in local.trustsec_matrix : value.destination_sgt], [for map in try(local.ise.trust_sec.ip_sgt_mappings, []) : map.sgt]))
+  unique_sgts     = distinct(concat([for key, value in local.trustsec_matrix : value.source_sgt], [for key, value in local.trustsec_matrix : value.destination_sgt], [for map in try(local.ise.trust_sec.ip_sgt_mappings, []) : try(map.sgt, null)], [for map in try(local.ise.trust_sec.ip_sgt_mapping_groups, []) : try(map.sgt, null)]))
   known_sgts      = [for group in try(local.ise.trust_sec.security_groups, []) : group.name]
   unknown_sgts    = setsubtract(local.unique_sgts, local.known_sgts)
   unique_sgacls   = distinct([for key, value in local.trustsec_matrix : value.sgacl_name])
