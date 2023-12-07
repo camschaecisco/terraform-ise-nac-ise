@@ -4,17 +4,11 @@ defaults:
       licenses:
         status: ENABLED
     identity_management:
-      endpoint_identity_groups:
-        description: ""
-      user_identity_groups:
-        description: ""
       internal_users:
-        description: ""
         enabled: true
         change_password: true
         password_id_store: Internal Users
       certificate_authentication_profiles:
-        description: ""
         allowed_as_user_name: false
         match_mode: NEVER
         username_from: CERTIFICATE
@@ -22,23 +16,18 @@ defaults:
         external_identity_store_name: "[not applicable]"
     trust_sec:
       security_groups:
-        description: ""
         propagate_to_apic: false
       security_group_acls:
-        description: ""
         ip_version: IPV4
       ip_sgt_mapping_groups:
-        description: ""
         deploy_type: ALL
       ip_sgt_mappings:
-        description: ""
         deploy_type: ALL
       matrix_entries:
         rule_status: ENABLED
     network_access:
       policy_elements:
         authorization_profiles:
-          description: ""
           agentless_posture: false
           access_type: ACCESS_ACCEPT
           track_movement: false
@@ -54,7 +43,6 @@ defaults:
             conditions:
               is_negate: false
         allowed_protocols:
-          description: ""
           process_host_lookup: true
           allow_pap_ascii: true
           allow_chap: false
@@ -117,16 +105,12 @@ defaults:
             eap_fast_use_pacs_stateless_session_resume: false
             eap_fast_enable_eap_chaining: false
         downloadable_acls:
-          description: ""
           dacl_type: IPV4
         dictionaries:
-          description: ""
           attribute_type: ENTITY_ATTR
         time_date_conditions:
-          description: ""
           is_negate: false
       policy_sets:
-        description: ""
         default: false
         state: enabled
         is_proxy: false
@@ -180,25 +164,20 @@ defaults:
         conditions:
           is_negate: false
         allowed_protocols:
-          description: ""
           allow_pap_ascii: true
           allow_chap: false
           allow_ms_chap_v1: false
         tacacs_profiles:
-          description: ""
           session_attributes:
             type: MANDATORY
         tacacs_command_sets:
-          description: ""
           permit_unmatched: false
           commands:
             grant: PERMIT
             arguments: ""
         time_date_conditions:
-          description: ""
           is_negate: false
       policy_sets:
-        description: ""
         default: false
         state: enabled
         is_proxy: false
