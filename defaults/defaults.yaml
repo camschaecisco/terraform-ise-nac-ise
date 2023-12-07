@@ -104,6 +104,17 @@ defaults:
             use_pacs_machine_pac_ttl_units: WEEKS
             use_pacs_stateless_session_resume: false
             enable_eap_chaining: false
+          peap:
+            eap_ms_chap_v2: true
+            eap_ms_chap_v2_pwd_change: true
+            eap_ms_chap_v2_pwd_change_retries: 1
+            eap_gtc: false
+            eap_gtc_pwd_change: false
+            eap_gtc_pwd_change_retries: 1
+            eap_tls: true
+            eap_tls_auth_of_expired_certs: false
+            require_cryptobinding: false
+            peap_v0: false
         downloadable_acls:
           dacl_type: IPV4
         dictionaries:
