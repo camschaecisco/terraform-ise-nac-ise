@@ -61,49 +61,49 @@ defaults:
           require_message_auth: false
           five_g: false
           teap:
-            allow_teap_eap_ms_chap_v2: true
-            allow_teap_eap_ms_chap_v2_pwd_change: true
-            allow_teap_eap_ms_chap_v2_pwd_change_retries: 3
-            allow_teap_eap_tls: true
-            allow_teap_eap_tls_auth_of_expired_certs: false
+            eap_ms_chap_v2: true
+            eap_ms_chap_v2_pwd_change: true
+            eap_ms_chap_v2_pwd_change_retries: 3
+            eap_tls: true
+            eap_tls_auth_of_expired_certs: false
             accept_client_cert_during_tunnel_est: true
             enable_eap_chaining: false
             allow_downgrade_msk: true
             request_basic_pwd_auth: false
           eap_ttls:
-            eap_ttls_pap_ascii: true
-            eap_ttls_chap: true
-            eap_ttls_ms_chap_v1: true
-            eap_ttls_ms_chap_v2: true
-            eap_ttls_eap_md5: true
-            eap_ttls_eap_ms_chap_v2: true
-            eap_ttls_eap_ms_chap_v2_pwd_change: true
-            eap_ttls_eap_ms_chap_v2_pwd_change_retries: 1
+            pap_ascii: true
+            chap: true
+            ms_chap_v1: true
+            ms_chap_v2: true
+            eap_md5: true
+            eap_ms_chap_v2: true
+            eap_ms_chap_v2_pwd_change: true
+            eap_ms_chap_v2_pwd_change_retries: 1
           eap_tls:
-            allow_eap_tls_auth_of_expired_certs: false
-            eap_tls_enable_stateless_session_resume: false
+            auth_of_expired_certs: false
+            enable_stateless_session_resume: false
           eap_fast:
-            allow_eap_fast_eap_ms_chap_v2: true
-            allow_eap_fast_eap_ms_chap_v2_pwd_change: true
-            allow_eap_fast_eap_ms_chap_v2_pwd_change_retries: 1
-            allow_eap_fast_eap_gtc: true
-            allow_eap_fast_eap_gtc_pwd_change: true
-            allow_eap_fast_eap_gtc_pwd_change_retries: 1
-            allow_eap_fast_eap_tls: true
-            allow_eap_fast_eap_tls_auth_of_expired_certs: false
-            eap_fast_use_pacs: true
-            eap_fast_use_pacs_tunnel_pac_ttl: 90
-            eap_fast_use_pacs_tunnel_pac_ttl_units: DAYS
-            eap_fast_use_pacs_use_proactive_pac_update_precentage: 10
-            eap_fast_use_pacs_allow_anonym_provisioning: false
-            eap_fast_use_pacs_allow_authen_provisioning: false
-            eap_fast_use_pacs_accept_client_cert: false
-            eap_fast_use_pacs_server_returns: false
-            eap_fast_use_pacs_allow_machine_authentication: false
-            eap_fast_use_pacs_machine_pac_ttl: 1
-            eap_fast_use_pacs_machine_pac_ttl_units: WEEKS
-            eap_fast_use_pacs_stateless_session_resume: false
-            eap_fast_enable_eap_chaining: false
+            eap_ms_chap_v2: true
+            eap_ms_chap_v2_pwd_change: true
+            eap_ms_chap_v2_pwd_change_retries: 1
+            eap_gtc: true
+            eap_gtc_pwd_change: true
+            eap_gtc_pwd_change_retries: 1
+            eap_tls: true
+            eap_tls_auth_of_expired_certs: false
+            use_pacs: true
+            use_pacs_tunnel_pac_ttl: 90
+            use_pacs_tunnel_pac_ttl_units: DAYS
+            use_pacs_use_proactive_pac_update_precentage: 10
+            use_pacs_allow_anonym_provisioning: false
+            use_pacs_allow_authen_provisioning: false
+            use_pacs_accept_client_cert: false
+            use_pacs_server_returns: false
+            use_pacs_allow_machine_authentication: false
+            use_pacs_machine_pac_ttl: 1
+            use_pacs_machine_pac_ttl_units: WEEKS
+            use_pacs_stateless_session_resume: false
+            enable_eap_chaining: false
         downloadable_acls:
           dacl_type: IPV4
         dictionaries:
