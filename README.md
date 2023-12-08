@@ -46,6 +46,7 @@ module "ise" {
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_ise"></a> [ise](#requirement\_ise) | >= 0.1.7 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | >= 2.3.0 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.10.0 |
 | <a name="requirement_utils"></a> [utils](#requirement\_utils) | >= 0.2.5 |
 ## Inputs
 
@@ -72,6 +73,7 @@ module "ise" {
 |------|---------|
 | <a name="provider_ise"></a> [ise](#provider\_ise) | 0.1.7 |
 | <a name="provider_local"></a> [local](#provider\_local) | 2.4.0 |
+| <a name="provider_time"></a> [time](#provider\_time) | >= 0.10.0 |
 | <a name="provider_utils"></a> [utils](#provider\_utils) | 0.2.5 |
 ## Resources
 
@@ -300,9 +302,12 @@ module "ise" {
 | [ise_trustsec_security_group_acl.trustsec_security_group_acl](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/trustsec_security_group_acl) | resource |
 | [ise_user_identity_group.user_identity_group](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/user_identity_group) | resource |
 | [local_sensitive_file.defaults](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/sensitive_file) | resource |
+| [time_sleep.sgt_wait](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [ise_device_admin_condition.device_admin_condition](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/device_admin_condition) | data source |
+| [ise_device_admin_condition.device_admin_condition_circular](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/device_admin_condition) | data source |
 | [ise_endpoint_identity_group.endpoint_identity_group](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/endpoint_identity_group) | data source |
 | [ise_network_access_condition.network_access_condition](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/network_access_condition) | data source |
+| [ise_network_access_condition.network_access_condition_circular](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/network_access_condition) | data source |
 | [ise_trustsec_security_group.trustsec_security_group](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/trustsec_security_group) | data source |
 | [ise_trustsec_security_group_acl.trustsec_security_group_acl](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/trustsec_security_group_acl) | data source |
 | [utils_yaml_merge.defaults](https://registry.terraform.io/providers/netascode/utils/latest/docs/data-sources/yaml_merge) | data source |

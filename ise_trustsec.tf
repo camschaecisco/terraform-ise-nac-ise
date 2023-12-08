@@ -44,23 +44,32 @@ resource "ise_trustsec_ip_to_sgt_mapping_group" "trustsec_ip_to_sgt_mapping_grou
   for_each = { for group in try(local.ise.trust_sec.ip_sgt_mapping_groups, []) : group.name => group if var.manage_trust_sec }
 
   name        = each.key
-  description = try(each.value.description, local.defaults.ise.trust_sec.ip_sgt_mappings.description, null)
-  sgt         = try(each.value.sgt, null) != null ? (contains(local.known_sgts, each.value.sgt) ? ise_trustsec_security_group.trustsec_security_group[each.value.sgt].id : data.ise_trustsec_security_group.trustsec_security_group[each.value.sgt].id) : null
+  sgt         = contains(local.known_sgts, each.value.sgt) ? ise_trustsec_security_group.trustsec_security_group[each.value.sgt].id : data.ise_trustsec_security_group.trustsec_security_group[each.value.sgt].id
   deploy_type = try(each.value.deploy_type, local.defaults.ise.trust_sec.ip_sgt_mappings.deploy_type, null)
   deploy_to   = try(each.value.deploy_to, local.defaults.ise.trust_sec.ip_sgt_mappings.deploy_to, null)
+
+  depends_on = [time_sleep.sgt_wait]
 }
 
 resource "ise_trustsec_ip_to_sgt_mapping" "trustsec_ip_to_sgt_mapping" {
-  for_each = { for map in try(local.ise.trust_sec.ip_sgt_mappings, []) : map.name => map if var.manage_trust_sec }
+  for_each = { for map in try(local.ise.trust_sec.ip_sgt_mappings, []) : try(map.host_name, map.host_ip) => map if var.manage_trust_sec }
 
   name          = each.key
-  description   = try(each.value.description, local.defaults.ise.trust_sec.ip_sgt_mappings.description, null)
   host_ip       = try(each.value.host_ip, local.defaults.ise.trust_sec.ip_sgt_mappings.host_ip, null)
   host_name     = try(each.value.host_name, local.defaults.ise.trust_sec.ip_sgt_mappings.host_name, null)
-  sgt           = try(each.value.sgt, null) != null ? (contains(local.known_sgts, each.value.sgt) ? ise_trustsec_security_group.trustsec_security_group[each.value.sgt].id : data.ise_trustsec_security_group.trustsec_security_group[each.value.sgt].id) : null
+  sgt           = try(each.value.mapping_group, null) != null ? null : try(each.value.sgt, null) != null ? (contains(local.known_sgts, each.value.sgt) ? ise_trustsec_security_group.trustsec_security_group[each.value.sgt].id : data.ise_trustsec_security_group.trustsec_security_group[each.value.sgt].id) : null
   mapping_group = try(each.value.mapping_group, null) != null ? ise_trustsec_ip_to_sgt_mapping_group.trustsec_ip_to_sgt_mapping_group[each.value.mapping_group].id : null
-  deploy_type   = try(each.value.deploy_type, local.defaults.ise.trust_sec.ip_sgt_mappings.deploy_type, null)
-  deploy_to     = try(each.value.deploy_to, local.defaults.ise.trust_sec.ip_sgt_mappings.deploy_to, null)
+  deploy_type   = try(each.value.mapping_group, null) != null ? null : try(each.value.deploy_type, local.defaults.ise.trust_sec.ip_sgt_mappings.deploy_type, null)
+  deploy_to     = try(each.value.mapping_group, null) != null ? null : try(each.value.deploy_to, local.defaults.ise.trust_sec.ip_sgt_mappings.deploy_to, null)
+
+  depends_on = [time_sleep.sgt_wait]
+}
+
+# Workaround for ISE API issue where deleting an SGT immediately after deleting an object using this SGT fails
+resource "time_sleep" "sgt_wait" {
+  destroy_duration = "5s"
+
+  depends_on = [ise_trustsec_security_group.trustsec_security_group]
 }
 
 resource "ise_trustsec_egress_matrix_cell" "trustsec_egress_matrix_cell" {
@@ -74,4 +83,6 @@ resource "ise_trustsec_egress_matrix_cell" "trustsec_egress_matrix_cell" {
   lifecycle {
     ignore_changes = [default_rule]
   }
+
+  depends_on = [time_sleep.sgt_wait]
 }

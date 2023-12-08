@@ -20,47 +20,57 @@ resource "ise_allowed_protocols" "allowed_protocols" {
   eap_tls_l_bit                                     = try(each.value.eap_tls_l_bit, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_tls_l_bit, null)
   allow_weak_ciphers_for_eap                        = try(each.value.allow_weak_ciphers_for_eap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_weak_ciphers_for_eap, null)
   require_message_auth                              = try(each.value.require_message_auth, local.defaults.ise.network_access.policy_elements.allowed_protocols.require_message_auth, null)
-  eap_tls_allow_auth_of_expired_certs               = try(each.value.eap_tls.allow_eap_tls_auth_of_expired_certs, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_tls.allow_eap_tls_auth_of_expired_certs, null)
-  eap_tls_enable_stateless_session_resume           = try(each.value.eap_tls.eap_tls_enable_stateless_session_resume, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_tls.eap_tls_enable_stateless_session_resume, null)
-  eap_ttls_pap_ascii                                = try(each.value.eap_ttls.eap_ttls_pap_ascii, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.eap_ttls_pap_ascii, null)
-  eap_ttls_chap                                     = try(each.value.eap_ttls.eap_ttls_chap, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.eap_ttls_chap, null)
-  eap_ttls_ms_chap_v1                               = try(each.value.eap_ttls.eap_ttls_ms_chap_v1, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.eap_ttls_ms_chap_v1, null)
-  eap_ttls_ms_chap_v2                               = try(each.value.eap_ttls.eap_ttls_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.eap_ttls_ms_chap_v2, null)
-  eap_ttls_eap_md5                                  = try(each.value.eap_ttls.eap_ttls_eap_md5, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.eap_ttls_eap_md5, null)
-  eap_ttls_eap_ms_chap_v2                           = try(each.value.eap_ttls.eap_ttls_eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.eap_ttls_eap_ms_chap_v2, null)
-  eap_ttls_eap_ms_chap_v2_pwd_change                = try(each.value.eap_ttls.eap_ttls_eap_ms_chap_v2_pwd_change, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.eap_ttls_eap_ms_chap_v2_pwd_change, null)
-  eap_ttls_eap_ms_chap_v2_pwd_change_retries        = try(each.value.eap_ttls.eap_ttls_eap_ms_chap_v2_pwd_change_retries, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.eap_ttls_eap_ms_chap_v2_pwd_change_retries, null)
-  eap_fast_eap_ms_chap_v2                           = try(each.value.eap_fast.allow_eap_fast_eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.allow_eap_fast_eap_ms_chap_v2, null)
-  eap_fast_eap_ms_chap_v2_pwd_change                = try(each.value.eap_fast.allow_eap_fast_eap_ms_chap_v2_pwd_change, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.allow_eap_fast_eap_ms_chap_v2_pwd_change, null)
-  eap_fast_eap_ms_chap_v2_pwd_change_retries        = try(each.value.eap_fast.allow_eap_fast_eap_ms_chap_v2_pwd_change_retries, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.allow_eap_fast_eap_ms_chap_v2_pwd_change_retries, null)
-  eap_fast_eap_gtc                                  = try(each.value.eap_fast.allow_eap_fast_eap_gtc, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.allow_eap_fast_eap_gtc, null)
-  eap_fast_eap_gtc_pwd_change                       = try(each.value.eap_fast.allow_eap_fast_eap_gtc_pwd_change, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.allow_eap_fast_eap_gtc_pwd_change, null)
-  eap_fast_eap_gtc_pwd_change_retries               = try(each.value.eap_fast.allow_eap_fast_eap_gtc_pwd_change_retries, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.allow_eap_fast_eap_gtc_pwd_change_retries, null)
-  eap_fast_eap_tls                                  = try(each.value.eap_fast.allow_eap_fast_eap_tls, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.allow_eap_fast_eap_tls, null)
-  eap_fast_eap_tls_auth_of_expired_certs            = try(each.value.eap_fast.allow_eap_fast_eap_tls_auth_of_expired_certs, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.allow_eap_fast_eap_tls_auth_of_expired_certs, null)
-  eap_fast_use_pacs                                 = try(each.value.eap_fast.eap_fast_use_pacs, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_use_pacs, null)
-  eap_fast_pacs_tunnel_pac_ttl                      = try(each.value.eap_fast.eap_fast_use_pacs_tunnel_pac_ttl, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_use_pacs_tunnel_pac_ttl, null)
-  eap_fast_pacs_tunnel_pac_ttl_unit                 = try(each.value.eap_fast.eap_fast_use_pacs_tunnel_pac_ttl_units, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_use_pacs_tunnel_pac_ttl_units, null)
-  eap_fast_pacs_use_proactive_pac_update_percentage = try(each.value.eap_fast.eap_fast_use_pacs_use_proactive_pac_update_precentage, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_use_pacs_use_proactive_pac_update_precentage, null)
-  eap_fast_pacs_allow_anonymous_provisioning        = try(each.value.eap_fast.eap_fast_use_pacs_allow_anonym_provisioning, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_use_pacs_allow_anonym_provisioning, null)
-  eap_fast_pacs_allow_authenticated_provisioning    = try(each.value.eap_fast.eap_fast_use_pacs_allow_authen_provisioning, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_use_pacs_allow_authen_provisioning, null)
-  eap_fast_pacs_allow_client_cert                   = try(each.value.eap_fast.eap_fast_use_pacs_accept_client_cert, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_use_pacs_accept_client_cert, null)
-  eap_fast_pacs_server_returns                      = try(each.value.eap_fast.eap_fast_use_pacs_server_returns, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_use_pacs_server_returns, null)
-  eap_fast_pacs_allow_machine_authentication        = try(each.value.eap_fast.eap_fast_use_pacs_allow_machine_authentication, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_use_pacs_allow_machine_authentication, null)
-  eap_fast_pacs_machine_pac_ttl                     = try(each.value.eap_fast.eap_fast_use_pacs_machine_pac_ttl, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_use_pacs_machine_pac_ttl, null)
-  eap_fast_pacs_machine_pac_ttl_unit                = try(each.value.eap_fast.eap_fast_use_pacs_machine_pac_ttl_units, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_use_pacs_machine_pac_ttl_units, null)
-  eap_fast_pacs_stateless_session_resume            = try(each.value.eap_fast.eap_fast_use_pacs_stateless_session_resume, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_use_pacs_stateless_session_resume, null)
-  eap_fast_pacs_authorization_pac_ttl               = try(each.value.eap_fast.eap_fast_use_pacs_authorization_pac_ttl, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_use_pacs_authorization_pac_ttl, null)
-  eap_fast_pacs_authorization_pac_ttl_unit          = try(each.value.eap_fast.eap_fast_use_pacs_authorization_pac_ttl_units, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_use_pacs_authorization_pac_ttl_units, null)
-  eap_fast_enable_eap_chaining                      = try(each.value.eap_fast.eap_fast_enable_eap_chaining, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_fast_enable_eap_chaining, null)
-  teap_eap_ms_chap_v2                               = try(each.value.teap.allow_teap_eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.allow_teap_eap_ms_chap_v2, null)
-  teap_eap_ms_chap_v2_pwd_change                    = try(each.value.teap.allow_teap_eap_ms_chap_v2_pwd_change, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.allow_teap_eap_ms_chap_v2_pwd_change, null)
-  teap_eap_ms_chap_v2_pwd_change_retries            = try(each.value.teap.allow_teap_eap_ms_chap_v2_pwd_change_retries, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.allow_teap_eap_ms_chap_v2_pwd_change_retries, null)
-  teap_eap_tls                                      = try(each.value.teap.allow_teap_eap_tls, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.allow_teap_eap_tls, null)
-  teap_eap_tls_auth_of_expired_certs                = try(each.value.teap.allow_teap_eap_tls_auth_of_expired_certs, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.allow_teap_eap_tls_auth_of_expired_certs, null)
-  teap_eap_accept_client_cert_during_tunnel_est     = try(each.value.teap.accept_client_cert_during_tunnel_est, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.accept_client_cert_during_tunnel_est, null)
-  teap_eap_chaining                                 = try(each.value.teap.enable_eap_chaining, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.enable_eap_chaining, null)
-  teap_downgrade_msk                                = try(each.value.teap.allow_downgrade_msk, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.allow_downgrade_msk, null)
+  eap_tls_allow_auth_of_expired_certs               = try(each.value.allow_eap_tls, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_tls, false) ? try(each.value.eap_tls.auth_of_expired_certs, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_tls.auth_of_expired_certs, null) : null
+  eap_tls_enable_stateless_session_resume           = try(each.value.allow_eap_tls, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_tls, false) ? try(each.value.eap_tls.enable_stateless_session_resume, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_tls.enable_stateless_session_resume, null) : null
+  peap_allow_peap_eap_ms_chap_v2                    = try(each.value.allow_peap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_peap, false) ? try(each.value.peap.eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.peap.eap_ms_chap_v2, null) : null
+  peap_allow_peap_eap_ms_chap_v2_pwd_change         = try(each.value.allow_peap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_peap, false) && try(each.value.peap.eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.peap.eap_ms_chap_v2, false) ? try(each.value.peap.eap_ms_chap_v2_pwd_change, local.defaults.ise.network_access.policy_elements.allowed_protocols.peap.eap_ms_chap_v2_pwd_change, null) : null
+  peap_allow_peap_eap_ms_chap_v2_pwd_change_retries = try(each.value.allow_peap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_peap, false) && try(each.value.peap.eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.peap.eap_ms_chap_v2, false) ? try(each.value.peap.eap_ms_chap_v2_pwd_change_retries, local.defaults.ise.network_access.policy_elements.allowed_protocols.peap.eap_ms_chap_v2_pwd_change_retries, null) : null
+  peap_allow_peap_eap_gtc                           = try(each.value.allow_peap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_peap, false) ? try(each.value.peap.eap_gtc, local.defaults.ise.network_access.policy_elements.allowed_protocols.peap.eap_gtc, null) : null
+  peap_allow_peap_eap_gtc_pwd_change                = try(each.value.allow_peap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_peap, false) && try(each.value.peap.eap_gtc, local.defaults.ise.network_access.policy_elements.allowed_protocols.peap.eap_gtc, false) ? try(each.value.peap.eap_gtc_pwd_change, local.defaults.ise.network_access.policy_elements.allowed_protocols.peap.eap_gtc_pwd_change, null) : null
+  peap_allow_peap_eap_gtc_pwd_change_retries        = try(each.value.allow_peap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_peap, false) && try(each.value.peap.eap_gtc, local.defaults.ise.network_access.policy_elements.allowed_protocols.peap.eap_gtc, false) ? try(each.value.peap.eap_gtc_pwd_change_retries, local.defaults.ise.network_access.policy_elements.allowed_protocols.peap.eap_gtc_pwd_change_retries, null) : null
+  peap_allow_peap_eap_tls                           = try(each.value.allow_peap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_peap, false) ? try(each.value.peap.eap_tls, local.defaults.ise.network_access.policy_elements.allowed_protocols.peap.eap_tls, null) : null
+  peap_allow_peap_eap_tls_auth_of_expired_certs     = try(each.value.allow_peap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_peap, false) ? try(each.value.peap.eap_tls_auth_of_expired_certs, local.defaults.ise.network_access.policy_elements.allowed_protocols.peap.eap_tls_auth_of_expired_certs, null) : null
+  require_cryptobinding                             = try(each.value.allow_peap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_peap, false) ? try(each.value.peap.require_cryptobinding, local.defaults.ise.network_access.policy_elements.allowed_protocols.peap.require_cryptobinding, null) : null
+  peap_peap_v0                                      = try(each.value.allow_peap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_peap, false) ? try(each.value.peap.peap_v0, local.defaults.ise.network_access.policy_elements.allowed_protocols.peap.peap_v0, null) : null
+  eap_ttls_pap_ascii                                = try(each.value.allow_eap_ttls, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_ttls, false) ? try(each.value.eap_ttls.pap_ascii, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.pap_ascii, null) : null
+  eap_ttls_chap                                     = try(each.value.allow_eap_ttls, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_ttls, false) ? try(each.value.eap_ttls.chap, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.chap, null) : null
+  eap_ttls_ms_chap_v1                               = try(each.value.allow_eap_ttls, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_ttls, false) ? try(each.value.eap_ttls.ms_chap_v1, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.ms_chap_v1, null) : null
+  eap_ttls_ms_chap_v2                               = try(each.value.allow_eap_ttls, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_ttls, false) ? try(each.value.eap_ttls.ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.ms_chap_v2, null) : null
+  eap_ttls_eap_md5                                  = try(each.value.allow_eap_ttls, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_ttls, false) ? try(each.value.eap_ttls.eap_md5, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.eap_md5, null) : null
+  eap_ttls_eap_ms_chap_v2                           = try(each.value.allow_eap_ttls, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_ttls, false) ? try(each.value.eap_ttls.eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.eap_ms_chap_v2, null) : null
+  eap_ttls_eap_ms_chap_v2_pwd_change                = try(each.value.allow_eap_ttls, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_ttls, false) && try(each.value.eap_ttls.eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.eap_ms_chap_v2, false) ? try(each.value.eap_ttls.eap_ms_chap_v2_pwd_change, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.eap_ms_chap_v2_pwd_change, null) : null
+  eap_ttls_eap_ms_chap_v2_pwd_change_retries        = try(each.value.allow_eap_ttls, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_ttls, false) && try(each.value.eap_ttls.eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.eap_ms_chap_v2, false) ? try(each.value.eap_ttls.eap_ms_chap_v2_pwd_change_retries, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_ttls.eap_ms_chap_v2_pwd_change_retries, null) : null
+  eap_fast_eap_ms_chap_v2                           = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_ms_chap_v2, null) : null
+  eap_fast_eap_ms_chap_v2_pwd_change                = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) && try(each.value.eap_fast.eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_ms_chap_v2, false) ? try(each.value.eap_fast.eap_ms_chap_v2_pwd_change, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_ms_chap_v2_pwd_change, null) : null
+  eap_fast_eap_ms_chap_v2_pwd_change_retries        = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) && try(each.value.eap_fast.eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_ms_chap_v2, false) ? try(each.value.eap_fast.eap_ms_chap_v2_pwd_change_retries, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_ms_chap_v2_pwd_change_retries, null) : null
+  eap_fast_eap_gtc                                  = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.eap_gtc, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_gtc, null) : null
+  eap_fast_eap_gtc_pwd_change                       = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) && try(each.value.eap_fast.eap_gtc, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_gtc, false) ? try(each.value.eap_fast.eap_gtc_pwd_change, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_gtc_pwd_change, null) : null
+  eap_fast_eap_gtc_pwd_change_retries               = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) && try(each.value.eap_fast.eap_gtc, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_gtc, false) ? try(each.value.eap_fast.eap_gtc_pwd_change_retries, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_gtc_pwd_change_retries, null) : null
+  eap_fast_eap_tls                                  = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.eap_tls, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_tls, null) : null
+  eap_fast_eap_tls_auth_of_expired_certs            = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.eap_tls_auth_of_expired_certs, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.eap_tls_auth_of_expired_certs, null) : null
+  eap_fast_use_pacs                                 = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.use_pacs, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs, null) : null
+  eap_fast_pacs_tunnel_pac_ttl                      = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.use_pacs_tunnel_pac_ttl, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_tunnel_pac_ttl, null) : null
+  eap_fast_pacs_tunnel_pac_ttl_unit                 = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.use_pacs_tunnel_pac_ttl_units, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_tunnel_pac_ttl_units, null) : null
+  eap_fast_pacs_use_proactive_pac_update_percentage = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.use_pacs_use_proactive_pac_update_precentage, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_use_proactive_pac_update_precentage, null) : null
+  eap_fast_pacs_allow_anonymous_provisioning        = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.use_pacs_allow_anonym_provisioning, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_allow_anonym_provisioning, null) : null
+  eap_fast_pacs_allow_authenticated_provisioning    = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.use_pacs_allow_authen_provisioning, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_allow_authen_provisioning, null) : null
+  eap_fast_pacs_allow_client_cert                   = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) && try(each.value.eap_fast.use_pacs_allow_authen_provisioning, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_allow_authen_provisioning) ? try(each.value.eap_fast.use_pacs_accept_client_cert, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_accept_client_cert, null) : null
+  eap_fast_pacs_server_returns                      = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) && try(each.value.eap_fast.use_pacs_allow_authen_provisioning, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_allow_authen_provisioning) ? try(each.value.eap_fast.use_pacs_server_returns, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_server_returns, null) : null
+  eap_fast_pacs_allow_machine_authentication        = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.use_pacs_allow_machine_authentication, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_allow_machine_authentication, null) : null
+  eap_fast_pacs_machine_pac_ttl                     = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) && try(each.value.eap_fast.use_pacs_allow_machine_authentication, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_allow_machine_authentication, false) ? try(each.value.eap_fast.use_pacs_machine_pac_ttl, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_machine_pac_ttl, null) : null
+  eap_fast_pacs_machine_pac_ttl_unit                = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) && try(each.value.eap_fast.use_pacs_allow_machine_authentication, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_allow_machine_authentication, false) ? try(each.value.eap_fast.use_pacs_machine_pac_ttl_units, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_machine_pac_ttl_units, null) : null
+  eap_fast_pacs_stateless_session_resume            = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.use_pacs_stateless_session_resume, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_stateless_session_resume, null) : null
+  eap_fast_pacs_authorization_pac_ttl               = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.use_pacs_authorization_pac_ttl, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_authorization_pac_ttl, null) : null
+  eap_fast_pacs_authorization_pac_ttl_unit          = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.use_pacs_authorization_pac_ttl_units, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.use_pacs_authorization_pac_ttl_units, null) : null
+  eap_fast_enable_eap_chaining                      = try(each.value.allow_eap_fast, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_eap_fast, false) ? try(each.value.eap_fast.enable_eap_chaining, local.defaults.ise.network_access.policy_elements.allowed_protocols.eap_fast.enable_eap_chaining, null) : null
+  teap_eap_ms_chap_v2                               = try(each.value.allow_teap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_teap, false) ? try(each.value.teap.eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.eap_ms_chap_v2, null) : null
+  teap_eap_ms_chap_v2_pwd_change                    = try(each.value.allow_teap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_teap, false) && try(each.value.teap.eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.eap_ms_chap_v2, false) ? try(each.value.teap.eap_ms_chap_v2_pwd_change, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.eap_ms_chap_v2_pwd_change, null) : null
+  teap_eap_ms_chap_v2_pwd_change_retries            = try(each.value.allow_teap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_teap, false) && try(each.value.teap.eap_ms_chap_v2, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.eap_ms_chap_v2, false) ? try(each.value.teap.eap_ms_chap_v2_pwd_change_retries, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.eap_ms_chap_v2_pwd_change_retries, null) : null
+  teap_eap_tls                                      = try(each.value.allow_teap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_teap, false) ? try(each.value.teap.eap_tls, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.eap_tls, null) : null
+  teap_eap_tls_auth_of_expired_certs                = try(each.value.allow_teap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_teap, false) ? try(each.value.teap.eap_tls_auth_of_expired_certs, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.eap_tls_auth_of_expired_certs, null) : null
+  teap_eap_accept_client_cert_during_tunnel_est     = try(each.value.allow_teap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_teap, false) ? try(each.value.teap.accept_client_cert_during_tunnel_est, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.accept_client_cert_during_tunnel_est, null) : null
+  teap_eap_chaining                                 = try(each.value.allow_teap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_teap, false) ? try(each.value.teap.enable_eap_chaining, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.enable_eap_chaining, null) : null
+  teap_downgrade_msk                                = try(each.value.allow_teap, local.defaults.ise.network_access.policy_elements.allowed_protocols.allow_teap, false) ? try(each.value.teap.allow_downgrade_msk, local.defaults.ise.network_access.policy_elements.allowed_protocols.teap.allow_downgrade_msk, null) : null
   preferred_eap_protocol                            = try(each.value.preferred_eap_protocol, local.defaults.ise.network_access.policy_elements.allowed_protocols.preferred_eap_protocol, null)
 }
 
@@ -115,6 +125,22 @@ resource "ise_authorization_profile" "authorization_profile" {
   depends_on = [ise_downloadable_acl.downloadable_acl]
 }
 
+locals {
+  network_access_conditions_circular_names = distinct(flatten([
+    for v in try(local.ise.network_access.policy_elements.conditions, []) : [
+      for v2 in try(v.children, []) : try(v2.type, null) == "ConditionReference" ? [[v2.name]] : [
+        for v3 in try(v2.children, []) : try(v3.type, null) == "ConditionReference" ? [v3.name] : []
+      ]
+    ]
+  ]))
+}
+
+data "ise_network_access_condition" "network_access_condition_circular" {
+  for_each = toset(local.network_access_conditions_circular_names)
+
+  name = each.value
+}
+
 resource "ise_network_access_condition" "network_access_condition" {
   for_each = { for condition in try(local.ise.network_access.policy_elements.conditions, []) : condition.name => condition if var.manage_network_access }
 
@@ -136,7 +162,7 @@ resource "ise_network_access_condition" "network_access_condition" {
     is_negate        = try(c.is_negate, local.defaults.ise.network_access.policy_elements.conditions.is_negate, null)
     operator         = try(c.operator, local.defaults.ise.network_access.policy_elements.conditions.operator, null)
     name             = try(c.name, null)
-    description      = try(c.description, local.defaults.ise.network_access.policy_elements.conditions.description, null)
+    id               = try(c.type, local.defaults.ise.network_access.policy_elements.conditions.type, null) == "ConditionReference" ? data.ise_network_access_condition.network_access_condition_circular[c.name].id : null
     children = [for c2 in try(c.children, []) : {
       attribute_name   = strcontains(try(c2.attribute_name, local.defaults.ise.network_access.policy_elements.conditions.attribute_name, ""), ":") ? split(":", try(c2.attribute_name, local.defaults.ise.network_access.policy_elements.conditions.attribute_name, null))[1] : try(c2.attribute_name, local.defaults.ise.network_access.policy_elements.conditions.attribute_name, null)
       attribute_value  = strcontains(try(c2.attribute_value, local.defaults.ise.network_access.policy_elements.conditions.attribute_value, ""), ":") ? split(":", try(c2.attribute_value, local.defaults.ise.network_access.policy_elements.conditions.attribute_value, null))[1] : try(c2.attribute_value, local.defaults.ise.network_access.policy_elements.conditions.attribute_value, null)
@@ -146,7 +172,7 @@ resource "ise_network_access_condition" "network_access_condition" {
       is_negate        = try(c2.is_negate, local.defaults.ise.network_access.policy_elements.conditions.is_negate, null)
       operator         = try(c2.operator, local.defaults.ise.network_access.policy_elements.conditions.operator, null)
       name             = try(c2.name, null)
-      description      = try(c2.description, local.defaults.ise.network_access.policy_elements.conditions.description, null)
+      id               = try(c2.type, local.defaults.ise.network_access.policy_elements.conditions.type, null) == "ConditionReference" ? data.ise_network_access_condition.network_access_condition_circular[c2.name].id : null
     }]
   }]
 }
@@ -170,35 +196,34 @@ resource "ise_network_access_dictionary" "network_access_dictionary" {
 }
 
 resource "ise_network_access_time_and_date_condition" "network_access_time_and_date_condition" {
-  for_each = { for c in try(local.ise.network_access.policy_elements.time_data_conditions, []) : c.name => c if var.manage_network_access }
+  for_each = { for c in try(local.ise.network_access.policy_elements.time_date_conditions, []) : c.name => c if var.manage_network_access }
 
   name                 = each.key
-  description          = try(each.value.description, local.defaults.ise.network_access.policy_elements.time_data_conditions.description, null)
-  is_negate            = try(each.value.is_negate, local.defaults.ise.network_access.policy_elements.time_data_conditions.is_negate, null)
-  week_days            = try(each.value.week_days, local.defaults.ise.network_access.policy_elements.time_data_conditions.week_days, null)
-  week_days_exception  = try(each.value.week_days_exception, local.defaults.ise.network_access.policy_elements.time_data_conditions.week_days_exception, null)
-  start_date           = try(each.value.start_date, local.defaults.ise.network_access.policy_elements.time_data_conditions.start_date, null)
-  end_date             = try(each.value.end_date, local.defaults.ise.network_access.policy_elements.time_data_conditions.end_date, null)
-  exception_start_date = try(each.value.exception_start_date, local.defaults.ise.network_access.policy_elements.time_data_conditions.exception_start_date, null)
-  exception_end_date   = try(each.value.exception_end_date, local.defaults.ise.network_access.policy_elements.time_data_conditions.exception_end_date, null)
-  start_time           = try(each.value.start_time, local.defaults.ise.network_access.policy_elements.time_data_conditions.start_time, null)
-  end_time             = try(each.value.end_time, local.defaults.ise.network_access.policy_elements.time_data_conditions.end_time, null)
-  exception_start_time = try(each.value.exception_start_time, local.defaults.ise.network_access.policy_elements.time_data_conditions.exception_start_time, null)
-  exception_end_time   = try(each.value.exception_end_time, local.defaults.ise.network_access.policy_elements.time_data_conditions.exception_end_time, null)
+  description          = try(each.value.description, local.defaults.ise.network_access.policy_elements.time_date_conditions.description, null)
+  week_days            = try(each.value.week_days, local.defaults.ise.network_access.policy_elements.time_date_conditions.week_days, null)
+  week_days_exception  = try(each.value.week_days_exception, local.defaults.ise.network_access.policy_elements.time_date_conditions.week_days_exception, null)
+  start_date           = try(each.value.start_date, local.defaults.ise.network_access.policy_elements.time_date_conditions.start_date, null)
+  end_date             = try(each.value.end_date, local.defaults.ise.network_access.policy_elements.time_date_conditions.end_date, null)
+  exception_start_date = try(each.value.exception_start_date, local.defaults.ise.network_access.policy_elements.time_date_conditions.exception_start_date, null)
+  exception_end_date   = try(each.value.exception_end_date, local.defaults.ise.network_access.policy_elements.time_date_conditions.exception_end_date, null)
+  start_time           = try(each.value.start_time, local.defaults.ise.network_access.policy_elements.time_date_conditions.start_time, null)
+  end_time             = try(each.value.end_time, local.defaults.ise.network_access.policy_elements.time_date_conditions.end_time, null)
+  exception_start_time = try(each.value.exception_start_time, local.defaults.ise.network_access.policy_elements.time_date_conditions.exception_start_time, null)
+  exception_end_time   = try(each.value.exception_end_time, local.defaults.ise.network_access.policy_elements.time_date_conditions.exception_end_time, null)
 }
 
 locals {
   conditions_network_access_policy_sets = flatten([
-    for v in try(local.ise.network_access.policy_sets, []) : try(v.condition.type, null) == "ConditionReference" ? [v.condition.name] : [
-      for v2 in try(v.condition.children, []) : try(v2.type, null) == "ConditionReference" ? [v2.name] : [
+    for v in try(local.ise.network_access.policy_sets, []) : try(v.condition.type, null) == "ConditionReference" ? [[[v.condition.name]]] : [
+      for v2 in try(v.condition.children, []) : try(v2.type, null) == "ConditionReference" ? [[v2.name]] : [
         for v3 in try(v2.children, []) : try(v3.type, null) == "ConditionReference" ? [v3.name] : []
       ]
     ]
   ])
   conditions_network_access_policy_set_authentication_rules = flatten([
     for v in try(local.ise.network_access.policy_sets, []) : [
-      for r in try(v.authentication_rules, []) : try(r.condition.type, null) == "ConditionReference" ? [r.condition.name] : [
-        for v2 in try(r.condition.children, []) : try(v2.type, null) == "ConditionReference" ? [v2.name] : [
+      for r in try(v.authentication_rules, []) : try(r.condition.type, null) == "ConditionReference" ? [[[r.condition.name]]] : [
+        for v2 in try(r.condition.children, []) : try(v2.type, null) == "ConditionReference" ? [[v2.name]] : [
           for v3 in try(v2.children, []) : try(v3.type, null) == "ConditionReference" ? [v3.name] : []
         ]
       ]
@@ -206,8 +231,8 @@ locals {
   ])
   conditions_network_access_policy_set_authorization_rules = flatten([
     for v in try(local.ise.network_access.policy_sets, []) : [
-      for r in try(v.authorization_rules, []) : try(r.condition.type, null) == "ConditionReference" ? [r.condition.name] : [
-        for v2 in try(r.condition.children, []) : try(v2.type, null) == "ConditionReference" ? [v2.name] : [
+      for r in try(v.authorization_rules, []) : try(r.condition.type, null) == "ConditionReference" ? [[[r.condition.name]]] : [
+        for v2 in try(r.condition.children, []) : try(v2.type, null) == "ConditionReference" ? [[v2.name]] : [
           for v3 in try(v2.children, []) : try(v3.type, null) == "ConditionReference" ? [v3.name] : []
         ]
       ]
@@ -215,16 +240,16 @@ locals {
   ])
   conditions_network_access_policy_set_authorization_exception_rules = flatten([
     for v in try(local.ise.network_access.policy_sets, []) : [
-      for r in try(v.authorization_exception_rules, []) : try(r.condition.type, null) == "ConditionReference" ? [r.condition.name] : [
-        for v2 in try(r.condition.children, []) : try(v2.type, null) == "ConditionReference" ? [v2.name] : [
+      for r in try(v.authorization_exception_rules, []) : try(r.condition.type, null) == "ConditionReference" ? [[[r.condition.name]]] : [
+        for v2 in try(r.condition.children, []) : try(v2.type, null) == "ConditionReference" ? [[v2.name]] : [
           for v3 in try(v2.children, []) : try(v3.type, null) == "ConditionReference" ? [v3.name] : []
         ]
       ]
     ]
   ])
   conditions_network_access_authorization_global_exception_rules = flatten([
-    for v in try(local.ise.network_access.authorization_global_exception_rules, []) : try(v.condition.type, null) == "ConditionReference" ? [v.condition.name] : [
-      for v2 in try(v.condition.children, []) : try(v2.type, null) == "ConditionReference" ? [v2.name] : [
+    for v in try(local.ise.network_access.authorization_global_exception_rules, []) : try(v.condition.type, null) == "ConditionReference" ? [[[v.condition.name]]] : [
+      for v2 in try(v.condition.children, []) : try(v2.type, null) == "ConditionReference" ? [[v2.name]] : [
         for v3 in try(v2.children, []) : try(v3.type, null) == "ConditionReference" ? [v3.name] : []
       ]
     ]
@@ -251,7 +276,7 @@ locals {
       condition_dictionary_value = strcontains(try(ps.condition.attribute_value, local.defaults.ise.network_access.policy_sets.condition.attribute_value, ""), ":") ? split(":", try(ps.condition.attribute_value, local.defaults.ise.network_access.policy_sets.condition.attribute_value, null))[0] : null
       condition_id               = contains(local.known_conditions_network_access, try(ps.condition.name, "")) ? ise_network_access_condition.network_access_condition[ps.condition.name].id : try(data.ise_network_access_condition.network_access_condition[ps.condition.name].id, null)
       condition_operator         = try(ps.condition.operator, local.defaults.ise.network_access.policy_sets.condition.operator, null)
-      description                = try(ps.description, local.defaults.ise.network_access.policy_sets.description)
+      description                = try(ps.description, local.defaults.ise.network_access.policy_sets.description, null)
       is_proxy                   = try(ps.is_proxy, local.defaults.ise.network_access.policy_sets.is_proxy)
       name                       = ps.name
       service_name               = try(ps.service_name, local.defaults.ise.network_access.policy_sets.service_name)
@@ -1312,7 +1337,7 @@ resource "ise_network_access_authorization_rule" "network_access_authorization_r
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, time_sleep.sgt_wait, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
 }
 
 resource "ise_network_access_authorization_rule" "network_access_authorization_rule_1" {
@@ -1797,7 +1822,7 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, time_sleep.sgt_wait, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
 }
 
 resource "ise_network_access_authorization_exception_rule" "network_access_authorization_exception_rule_1" {
@@ -2260,7 +2285,7 @@ locals {
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_0" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && (rule.rank == 0 || rule.rank == null) }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && (rule.rank == 0 || rule.rank == null) }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2277,11 +2302,11 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   security_group            = each.value.security_group
   children                  = each.value.children
 
-  depends_on = [ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
+  depends_on = [ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, time_sleep.sgt_wait, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_1" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 1 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 1 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2302,7 +2327,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_2" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 2 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 2 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2323,7 +2348,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_3" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 3 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 3 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2344,7 +2369,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_4" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 4 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 4 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2365,7 +2390,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_5" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 5 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 5 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2386,7 +2411,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_6" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 6 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 6 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2407,7 +2432,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_7" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 7 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 7 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2428,7 +2453,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_8" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 8 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 8 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2449,7 +2474,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_9" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 9 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 9 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2470,7 +2495,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_10" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 10 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 10 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2491,7 +2516,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_11" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 11 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 11 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2512,7 +2537,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_12" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 12 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 12 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2533,7 +2558,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_13" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 13 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 13 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2554,7 +2579,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_14" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 14 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 14 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2575,7 +2600,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_15" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 15 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 15 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2596,7 +2621,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_16" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 16 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 16 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2617,7 +2642,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_17" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 17 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 17 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2638,7 +2663,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_18" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 18 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 18 }
 
   name                      = each.value.name
   rank                      = each.value.rank
@@ -2659,7 +2684,7 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
 }
 
 resource "ise_network_access_authorization_global_exception_rule" "network_access_authorization_global_exception_rule_19" {
-  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.key => rule if var.manage_network_access && rule.rank == 19 }
+  for_each = { for rule in local.network_access_authorization_global_exception_rules : rule.name => rule if var.manage_network_access && rule.rank == 19 }
 
   name                      = each.value.name
   rank                      = each.value.rank
