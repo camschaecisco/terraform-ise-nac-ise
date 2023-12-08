@@ -119,8 +119,6 @@ defaults:
           dacl_type: IPV4
         dictionaries:
           attribute_type: ENTITY_ATTR
-        time_date_conditions:
-          is_negate: false
       policy_sets:
         default: false
         state: enabled
@@ -186,8 +184,6 @@ defaults:
           commands:
             grant: PERMIT
             arguments: ""
-        time_date_conditions:
-          is_negate: false
       policy_sets:
         default: false
         state: enabled
