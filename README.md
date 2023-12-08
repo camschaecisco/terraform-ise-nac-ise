@@ -302,6 +302,7 @@ module "ise" {
 | [ise_trustsec_security_group_acl.trustsec_security_group_acl](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/trustsec_security_group_acl) | resource |
 | [ise_user_identity_group.user_identity_group](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/user_identity_group) | resource |
 | [local_sensitive_file.defaults](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/sensitive_file) | resource |
+| [time_sleep.device_admin_policy_object_wait](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [time_sleep.sgt_wait](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [ise_device_admin_condition.device_admin_condition](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/device_admin_condition) | data source |
 | [ise_device_admin_condition.device_admin_condition_circular](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/device_admin_condition) | data source |
