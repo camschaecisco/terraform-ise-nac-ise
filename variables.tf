@@ -16,6 +16,12 @@ variable "model" {
   default     = {}
 }
 
+variable "manage_network_resources" {
+  description = "Flag to indicate if network resources configuration should be managed."
+  type        = bool
+  default     = false
+}
+
 variable "manage_network_access" {
   description = "Flag to indicate if network access configuration should be managed."
   type        = bool

@@ -3,6 +3,31 @@ defaults:
     system:
       licenses:
         status: ENABLED
+    network_resources:
+      network_devices:
+        profile_name: Cisco
+        ips:
+          mask: 32
+        radius:
+          coa_port: 1700
+          dtls_required: false
+          enable_key_wrap: false
+          encryption_key_format: ASCII
+        tacacs:
+          connect_mode_options: "OFF"
+        snmp:
+          link_trap_query: true
+          mac_trap_query: true
+          polling_interval: 28800
+        trust_sec:
+          download_enviroment_data_every_x_seconds: 86400
+          download_peer_authorization_policy_every_x_seconds: 86400
+          re_authentication_every_x_seconds: 86400
+          download_sgacl_lists_every_x_seconds: 86400
+          other_sga_devices_to_trust_this_device: true
+          send_configuration_to_device: false
+          send_configuration_to_device_using: DISABLE_ALL
+          include_when_deploying_sgt_updates: false
     identity_management:
       internal_users:
         enabled: true

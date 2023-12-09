@@ -55,6 +55,7 @@ module "ise" {
 | <a name="input_manage_device_administration"></a> [manage\_device\_administration](#input\_manage\_device\_administration) | Flag to indicate if device administration configuration should be managed. | `bool` | `false` | no |
 | <a name="input_manage_identity_management"></a> [manage\_identity\_management](#input\_manage\_identity\_management) | Flag to indicate if identity management configuration should be managed. | `bool` | `false` | no |
 | <a name="input_manage_network_access"></a> [manage\_network\_access](#input\_manage\_network\_access) | Flag to indicate if network access configuration should be managed. | `bool` | `false` | no |
+| <a name="input_manage_network_resources"></a> [manage\_network\_resources](#input\_manage\_network\_resources) | Flag to indicate if network resources configuration should be managed. | `bool` | `false` | no |
 | <a name="input_manage_system"></a> [manage\_system](#input\_manage\_system) | Flag to indicate if system configuration should be managed. | `bool` | `false` | no |
 | <a name="input_manage_trust_sec"></a> [manage\_trust\_sec](#input\_manage\_trust\_sec) | Flag to indicate if TrustSec configuration should be managed. | `bool` | `false` | no |
 | <a name="input_model"></a> [model](#input\_model) | As an alternative to YAML files, a native Terraform data structure can be provided as well. | `map(any)` | `{}` | no |
@@ -292,6 +293,13 @@ module "ise" {
 | [ise_network_access_policy_set.network_access_policy_set_8](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/network_access_policy_set) | resource |
 | [ise_network_access_policy_set.network_access_policy_set_9](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/network_access_policy_set) | resource |
 | [ise_network_access_time_and_date_condition.network_access_time_and_date_condition](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/network_access_time_and_date_condition) | resource |
+| [ise_network_device.network_device](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/network_device) | resource |
+| [ise_network_device_group.network_device_group_0](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/network_device_group) | resource |
+| [ise_network_device_group.network_device_group_1](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/network_device_group) | resource |
+| [ise_network_device_group.network_device_group_2](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/network_device_group) | resource |
+| [ise_network_device_group.network_device_group_3](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/network_device_group) | resource |
+| [ise_network_device_group.network_device_group_4](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/network_device_group) | resource |
+| [ise_network_device_group.network_device_group_5](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/network_device_group) | resource |
 | [ise_repository.repository](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/repository) | resource |
 | [ise_tacacs_command_set.tacacs_command_set](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/tacacs_command_set) | resource |
 | [ise_tacacs_profile.tacacs_profile](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/tacacs_profile) | resource |
@@ -303,6 +311,7 @@ module "ise" {
 | [ise_user_identity_group.user_identity_group](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/resources/user_identity_group) | resource |
 | [local_sensitive_file.defaults](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/sensitive_file) | resource |
 | [time_sleep.device_admin_policy_object_wait](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [time_sleep.network_device_group_wait](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [time_sleep.sgt_wait](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [ise_device_admin_condition.device_admin_condition](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/device_admin_condition) | data source |
 | [ise_device_admin_condition.device_admin_condition_circular](https://registry.terraform.io/providers/CiscoDevNet/ise/latest/docs/data-sources/device_admin_condition) | data source |
