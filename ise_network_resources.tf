@@ -1,10 +1,10 @@
 locals {
   network_device_groups = [for group in try(local.ise.network_resources.network_device_groups, []) : {
     key         = "${try(join("/", group.path), "")}/${group.name}"
-    order       = length(try(group.path, []))
-    name        = format("%s#%s", join("#", try(group.path[0], "") == "All Device Types" ? concat(["Device Type"], try(group.path, [])) : (try(group.path[0], "") == "All Locations" ? concat(["Location"], try(group.path, [])) : concat([try(group.path[0], group.name)], try(group.path, [])))), group.name)
+    order       = try(length(split("#", group.path)), 0)
+    name        = try(split("#", group.path)[0] == "All Device Types", false) ? "Device Type#${group.path}#${group.name}" : (try(split("#", group.path)[0] == "All Locations", false) ? "Location#${group.path}#${group.name}" : (try(split("#", group.path)[0] == "Is IPSEC Device", false) ? "IPSEC#${group.path}" : (try(group.path, null) == null ? "${group.name}#${group.name}" : "${split("#", group.path)[0]}#${group.path}#${group.name}")))
     description = try(group.description, local.defaults.ise.network_resources.network_device_groups.description, null)
-    root_group  = try(group.path[0], "") == "All Device Types" ? "Device Type" : (try(group.path[0], "") == "All Locations" ? "Location" : try(group.path[0], group.name))
+    root_group  = try(split("#", group.path)[0] == "All Device Types", false) ? "Device Type" : (try(split("#", group.path)[0] == "All Locations", false) ? "Location" : (try(split("#", group.path)[0] == "Is IPSEC Device", false) ? "IPSEC" : try(split("#", group.path)[0], group.name)))
   }]
 }
 
@@ -97,7 +97,7 @@ resource "ise_network_device" "network_device" {
   }], null)
   model_name = try(each.value.model_name, local.defaults.ise.network_resources.network_devices.model_name, null)
   network_device_groups = try(each.value.network_device_groups, null) == null ? null : [
-    for group in try(each.value.network_device_groups, []) : split("/", group)[0] == "All Device Types" ? format("Device Type#%s", join("#", split("/", group))) : (split("/", group)[0] == "All Locations" ? format("Location#%s", join("#", split("/", group))) : (split("/", group)[0] == "Is IPSEC Device" ? format("IPSEC#%s", join("#", split("/", group))) : format("%s#%s", split("/", group)[0], join("#", split("/", group)))))
+    for group in try(each.value.network_device_groups, []) : split("#", group)[0] == "All Device Types" ? "Device Type#${group}" : (split("#", group)[0] == "All Locations" ? "Location#${group}" : (split("#", group)[0] == "Is IPSEC Device" ? "IPSEC#${group}" : "${split("#", group)[0]}#${group}"))
   ]
   software_version                                            = try(each.value.software_version, local.defaults.ise.network_resources.network_devices.software_version, null)
   profile_name                                                = try(each.value.profile_name, local.defaults.ise.network_resources.network_devices.profile_name, null)
