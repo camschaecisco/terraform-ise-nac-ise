@@ -1,5 +1,3 @@
-**This repository has been moved to: https://github.com/netascode/terraform-ise-nac-ise**
-
 <!-- BEGIN_TF_DOCS -->
 # Terraform Network-as-Code Cisco ISE Module
 
@@ -74,10 +72,10 @@ module "ise" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ise"></a> [ise](#provider\_ise) | 0.1.7 |
-| <a name="provider_local"></a> [local](#provider\_local) | 2.4.0 |
+| <a name="provider_ise"></a> [ise](#provider\_ise) | >= 0.1.8 |
+| <a name="provider_local"></a> [local](#provider\_local) | >= 2.3.0 |
 | <a name="provider_time"></a> [time](#provider\_time) | >= 0.10.0 |
-| <a name="provider_utils"></a> [utils](#provider\_utils) | 0.2.5 |
+| <a name="provider_utils"></a> [utils](#provider\_utils) | >= 0.2.5 |
 ## Resources
 
 | Name | Type |
