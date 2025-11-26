@@ -173,6 +173,28 @@ resource "ise_network_access_condition" "network_access_condition" {
       operator         = try(c2.operator, local.defaults.ise.network_access.policy_elements.conditions.operator, null)
       name             = try(c2.name, null)
       id               = try(c2.type, local.defaults.ise.network_access.policy_elements.conditions.type, null) == "ConditionReference" ? data.ise_network_access_condition.network_access_condition_circular[c2.name].id : null
+      children = [for c3 in try(c2.children, []) : {
+        attribute_name   = strcontains(try(c3.attribute_name, local.defaults.ise.network_access.policy_elements.conditions.attribute_name, ""), ":") ? split(":", try(c3.attribute_name, local.defaults.ise.network_access.policy_elements.conditions.attribute_name, null))[1] : try(c3.attribute_name, local.defaults.ise.network_access.policy_elements.conditions.attribute_name, null)
+        attribute_value  = strcontains(try(c3.attribute_value, local.defaults.ise.network_access.policy_elements.conditions.attribute_value, ""), ":") ? split(":", try(c3.attribute_value, local.defaults.ise.network_access.policy_elements.conditions.attribute_value, null))[1] : try(c3.attribute_value, local.defaults.ise.network_access.policy_elements.conditions.attribute_value, null)
+        dictionary_name  = strcontains(try(c3.attribute_name, local.defaults.ise.network_access.policy_elements.conditions.attribute_name, ""), ":") ? split(":", try(c3.attribute_name, local.defaults.ise.network_access.policy_elements.conditions.attribute_name, null))[0] : null
+        dictionary_value = strcontains(try(c3.attribute_value, local.defaults.ise.network_access.policy_elements.conditions.attribute_value, ""), ":") ? split(":", try(c3.attribute_value, local.defaults.ise.network_access.policy_elements.conditions.attribute_value, null))[0] : null
+        condition_type   = try(c3.type, local.defaults.ise.network_access.policy_elements.conditions.type, null)
+        is_negate        = try(c3.is_negate, local.defaults.ise.network_access.policy_elements.conditions.is_negate, null)
+        operator         = try(c3.operator, local.defaults.ise.network_access.policy_elements.conditions.operator, null)
+        name             = try(c3.name, null)
+        id               = try(c3.type, local.defaults.ise.network_access.policy_elements.conditions.type, null) == "ConditionReference" ? data.ise_network_access_condition.network_access_condition_circular[c3.name].id : null
+        children = [for c4 in try(c3.children, []) : {
+          attribute_name   = strcontains(try(c4.attribute_name, local.defaults.ise.network_access.policy_elements.conditions.attribute_name, ""), ":") ? split(":", try(c4.attribute_name, local.defaults.ise.network_access.policy_elements.conditions.attribute_name, null))[1] : try(c4.attribute_name, local.defaults.ise.network_access.policy_elements.conditions.attribute_name, null)
+          attribute_value  = strcontains(try(c4.attribute_value, local.defaults.ise.network_access.policy_elements.conditions.attribute_value, ""), ":") ? split(":", try(c4.attribute_value, local.defaults.ise.network_access.policy_elements.conditions.attribute_value, null))[1] : try(c4.attribute_value, local.defaults.ise.network_access.policy_elements.conditions.attribute_value, null)
+          dictionary_name  = strcontains(try(c4.attribute_name, local.defaults.ise.network_access.policy_elements.conditions.attribute_name, ""), ":") ? split(":", try(c4.attribute_name, local.defaults.ise.network_access.policy_elements.conditions.attribute_name, null))[0] : null
+          dictionary_value = strcontains(try(c4.attribute_value, local.defaults.ise.network_access.policy_elements.conditions.attribute_value, ""), ":") ? split(":", try(c4.attribute_value, local.defaults.ise.network_access.policy_elements.conditions.attribute_value, null))[0] : null
+          condition_type   = try(c4.type, local.defaults.ise.network_access.policy_elements.conditions.type, null)
+          is_negate        = try(c4.is_negate, local.defaults.ise.network_access.policy_elements.conditions.is_negate, null)
+          operator         = try(c4.operator, local.defaults.ise.network_access.policy_elements.conditions.operator, null)
+          name             = try(c4.name, null)
+          id               = try(c4.type, local.defaults.ise.network_access.policy_elements.conditions.type, null) == "ConditionReference" ? data.ise_network_access_condition.network_access_condition_circular[c4.name].id : null
+        }]
+      }]
     }]
   }]
 }
@@ -299,7 +321,27 @@ locals {
           condition_type   = try(j.type, local.defaults.ise.network_access.policy_sets.condition.type, null)
           is_negate        = try(j.is_negate, local.defaults.ise.network_access.policy_sets.condition.is_negate, null)
           operator         = try(j.operator, local.defaults.ise.network_access.policy_sets.condition.operator, null)
-          id               = contains(local.known_conditions_network_access, try(j.name, "")) ? ise_network_access_condition.network_access_condition[j.name].id : try(data.ise_network_access_condition.network_access_condition[j.name].id, null)
+          children = try([for k in j.children : {
+            attribute_name   = strcontains(try(k.attribute_name, local.defaults.ise.network_access.policy_sets.condition.attribute_name, ""), ":") ? split(":", try(k.attribute_name, local.defaults.ise.network_access.policy_sets.condition.attribute_name, null))[1] : try(k.attribute_name, local.defaults.ise.network_access.policy_sets.condition.attribute_name, null)
+            attribute_value  = strcontains(try(k.attribute_value, local.defaults.ise.network_access.policy_sets.condition.attribute_value, ""), ":") ? split(":", try(k.attribute_value, local.defaults.ise.network_access.policy_sets.condition.attribute_value, null))[1] : try(k.attribute_value, local.defaults.ise.network_access.policy_sets.condition.attribute_value, null)
+            dictionary_name  = strcontains(try(k.attribute_name, local.defaults.ise.network_access.policy_sets.condition.attribute_name, ""), ":") ? split(":", try(k.attribute_name, local.defaults.ise.network_access.policy_sets.condition.attribute_name, null))[0] : null
+            dictionary_value = strcontains(try(k.attribute_value, local.defaults.ise.network_access.policy_sets.condition.attribute_value, ""), ":") ? split(":", try(k.attribute_value, local.defaults.ise.network_access.policy_sets.condition.attribute_value, null))[0] : null
+            condition_type   = try(k.type, local.defaults.ise.network_access.policy_sets.condition.type, null)
+            is_negate        = try(k.is_negate, local.defaults.ise.network_access.policy_sets.condition.is_negate, null)
+            operator         = try(k.operator, local.defaults.ise.network_access.policy_sets.condition.operator, null)
+            id               = contains(local.known_conditions_network_access, try(k.name, "")) ? ise_network_access_condition.network_access_condition[k.name].id : try(data.ise_network_access_condition.network_access_condition[k.name].id, null)
+            children = try([for l in k.children : {
+              attribute_name   = strcontains(try(l.attribute_name, local.defaults.ise.network_access.policy_sets.condition.attribute_name, ""), ":") ? split(":", try(l.attribute_name, local.defaults.ise.network_access.policy_sets.condition.attribute_name, null))[1] : try(l.attribute_name, local.defaults.ise.network_access.policy_sets.condition.attribute_name, null)
+              attribute_value  = strcontains(try(l.attribute_value, local.defaults.ise.network_access.policy_sets.condition.attribute_value, ""), ":") ? split(":", try(l.attribute_value, local.defaults.ise.network_access.policy_sets.condition.attribute_value, null))[1] : try(l.attribute_value, local.defaults.ise.network_access.policy_sets.condition.attribute_value, null)
+              dictionary_name  = strcontains(try(l.attribute_name, local.defaults.ise.network_access.policy_sets.condition.attribute_name, ""), ":") ? split(":", try(l.attribute_name, local.defaults.ise.network_access.policy_sets.condition.attribute_name, null))[0] : null
+              dictionary_value = strcontains(try(l.attribute_value, local.defaults.ise.network_access.policy_sets.condition.attribute_value, ""), ":") ? split(":", try(l.attribute_value, local.defaults.ise.network_access.policy_sets.condition.attribute_value, null))[0] : null
+              condition_type   = try(l.type, local.defaults.ise.network_access.policy_sets.condition.type, null)
+              is_negate        = try(l.is_negate, local.defaults.ise.network_access.policy_sets.condition.is_negate, null)
+              operator         = try(l.operator, local.defaults.ise.network_access.policy_sets.condition.operator, null)
+              id               = contains(local.known_conditions_network_access, try(l.name, "")) ? ise_network_access_condition.network_access_condition[l.name].id : try(data.ise_network_access_condition.network_access_condition[l.name].id, null)
+            }], null)
+          }], null)
+          id = contains(local.known_conditions_network_access, try(j.name, "")) ? ise_network_access_condition.network_access_condition[j.name].id : try(data.ise_network_access_condition.network_access_condition[j.name].id, null)
         }], null)
       }], null)
     }
