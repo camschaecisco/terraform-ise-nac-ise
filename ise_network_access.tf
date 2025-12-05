@@ -288,6 +288,25 @@ data "ise_network_access_condition" "network_access_condition" {
 }
 
 locals {
+  # Validation: Check for excessive nesting in policy sets
+  network_access_policy_sets_with_excessive_nesting = [
+    for ps in try(local.ise.network_access.policy_sets, []) : ps.name
+    if anytrue(flatten([
+      for i in try(ps.condition.children, []) : [
+        for j in try(i.children, []) : [
+          for k in try(j.children, []) : [
+            for l in try(k.children, []) : [
+              for m in try(l.children, []) : [
+                for n in try(m.children, []) :
+                try(length(n.children), 0) > 0
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]))
+  ]
+
   network_access_policy_sets = [
     for ps in try(local.ise.network_access.policy_sets, []) : {
       condition_type             = try(ps.condition.type, local.defaults.ise.network_access.policy_sets.condition.type, null)
@@ -823,6 +842,29 @@ locals {
     { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_18[ps.name].id if ps.rank == 18 },
     { for ps in local.network_access_policy_sets : ps.name => ise_network_access_policy_set.network_access_policy_set_19[ps.name].id if ps.rank == 19 },
   )
+
+  # Validation: Check for excessive nesting in authentication rules
+  network_access_authentication_rules_with_excessive_nesting = flatten([
+    for ps in try(local.ise.network_access.policy_sets, []) : [
+      for rule in try(ps.authentication_rules, []) : format("%s/%s", ps.name, rule.name)
+      if anytrue(flatten([
+        for i in try(rule.condition.children, []) :
+        [
+          for j in try(i.children, []) : [
+            for k in try(j.children, []) : [
+              for l in try(k.children, []) : [
+                for m in try(l.children, []) : [
+                  for n in try(m.children, []) :
+                  try(length(n.children), 0) > 0
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]))
+    ]
+  ])
+
   network_access_authentication_rules = flatten([
     for ps in try(local.ise.network_access.policy_sets, []) : [
       for rule in try(ps.authentication_rules, []) : {
@@ -1544,6 +1586,46 @@ locals {
         ]
       ]))
     ]
+  ])
+
+  # Validation: Check for excessive nesting in authorization exception rules
+  network_access_authorization_exception_rules_with_excessive_nesting = flatten([
+    for ps in try(local.ise.network_access.policy_sets, []) : [
+      for rule in try(ps.authorization_exception_rules, []) : format("%s/%s", ps.name, rule.name)
+      if anytrue(flatten([
+        for i in try(rule.condition.children, []) : [
+          for j in try(i.children, []) : [
+            for k in try(j.children, []) : [
+              for l in try(k.children, []) : [
+                for m in try(l.children, []) : [
+                  for n in try(m.children, []) :
+                  try(length(n.children), 0) > 0
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]))
+    ]
+  ])
+
+  # Validation: Check for excessive nesting in authorization global exception rules
+  network_access_authorization_global_exception_rules_with_excessive_nesting = flatten([
+    for rule in try(local.ise.network_access.authorization_global_exception_rules, []) : rule.name
+    if anytrue(flatten([
+      for i in try(rule.condition.children, []) : [
+        for j in try(i.children, []) : [
+          for k in try(j.children, []) : [
+            for l in try(k.children, []) : [
+              for m in try(l.children, []) : [
+                for n in try(m.children, []) :
+                try(length(n.children), 0) > 0
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]))
   ])
 }
 

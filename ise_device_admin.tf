@@ -156,6 +156,25 @@ data "ise_device_admin_condition" "device_admin_condition" {
 }
 
 locals {
+  # Validation: Check for excessive nesting in policy sets
+  device_admin_policy_sets_with_excessive_nesting = [
+    for ps in try(local.ise.device_administration.policy_sets, []) : ps.name
+    if anytrue(flatten([
+      for i in try(ps.condition.children, []) : [
+        for j in try(i.children, []) : [
+          for k in try(j.children, []) : [
+            for l in try(k.children, []) : [
+              for m in try(l.children, []) : [
+                for n in try(m.children, []) :
+                try(length(n.children), 0) > 0
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]))
+  ]
+
   device_admin_policy_sets = [
     for ps in try(local.ise.device_administration.policy_sets, []) : {
       condition_type             = try(ps.condition.type, local.defaults.ise.device_administration.policy_sets.condition.type, null)
@@ -659,6 +678,28 @@ locals {
     { for ps in local.device_admin_policy_sets : ps.name => ise_device_admin_policy_set.device_admin_policy_set_18[ps.name].id if ps.rank == 18 },
     { for ps in local.device_admin_policy_sets : ps.name => ise_device_admin_policy_set.device_admin_policy_set_19[ps.name].id if ps.rank == 19 },
   )
+
+  # Validation: Check for excessive nesting in authentication rules
+  device_admin_authentication_rules_with_excessive_nesting = flatten([
+    for ps in try(local.ise.device_administration.policy_sets, []) : [
+      for rule in try(ps.authentication_rules, []) : format("%s/%s", ps.name, rule.name)
+      if anytrue(flatten([
+        for i in try(rule.condition.children, []) : [
+          for j in try(i.children, []) : [
+            for k in try(j.children, []) : [
+              for l in try(k.children, []) : [
+                for m in try(l.children, []) : [
+                  for n in try(m.children, []) :
+                  try(length(n.children), 0) > 0
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]))
+    ]
+  ])
+
   device_admin_authentication_rules = flatten([
     for ps in try(local.ise.device_administration.policy_sets, []) : [
       for rule in try(ps.authentication_rules, []) : {
@@ -1214,6 +1255,27 @@ resource "time_sleep" "device_admin_policy_object_wait" {
 }
 
 locals {
+  # Validation: Check for excessive nesting in authorization rules
+  device_admin_authorization_rules_with_excessive_nesting = flatten([
+    for ps in try(local.ise.device_administration.policy_sets, []) : [
+      for rule in try(ps.authorization_rules, []) : format("%s/%s", ps.name, rule.name)
+      if anytrue(flatten([
+        for i in try(rule.condition.children, []) : [
+          for j in try(i.children, []) : [
+            for k in try(j.children, []) : [
+              for l in try(k.children, []) : [
+                for m in try(l.children, []) : [
+                  for n in try(m.children, []) :
+                  try(length(n.children), 0) > 0
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]))
+    ]
+  ])
+
   device_admin_authorization_rules = flatten([
     for ps in try(local.ise.device_administration.policy_sets, []) : [
       for rule in try(ps.authorization_rules, []) : {
@@ -1719,6 +1781,27 @@ resource "ise_device_admin_authorization_rule" "device_admin_authorization_rule_
 }
 
 locals {
+  # Validation: Check for excessive nesting in authorization exception rules
+  device_admin_authorization_exception_rules_with_excessive_nesting = flatten([
+    for ps in try(local.ise.device_administration.policy_sets, []) : [
+      for rule in try(ps.authorization_exception_rules, []) : format("%s/%s", ps.name, rule.name)
+      if anytrue(flatten([
+        for i in try(rule.condition.children, []) : [
+          for j in try(i.children, []) : [
+            for k in try(j.children, []) : [
+              for l in try(k.children, []) : [
+                for m in try(l.children, []) : [
+                  for n in try(m.children, []) :
+                  try(length(n.children), 0) > 0
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]))
+    ]
+  ])
+
   device_admin_authorization_exception_rules = flatten([
     for ps in try(local.ise.device_administration.policy_sets, []) : [
       for rule in try(ps.authorization_exception_rules, []) : {
@@ -2224,6 +2307,25 @@ resource "ise_device_admin_authorization_exception_rule" "device_admin_authoriza
 }
 
 locals {
+  # Validation: Check for excessive nesting in authorization global exception rules
+  device_admin_authorization_global_exception_rules_with_excessive_nesting = [
+    for rule in try(local.ise.device_administration.authorization_global_exception_rules, []) : rule.name
+    if anytrue(flatten([
+      for i in try(rule.condition.children, []) : [
+        for j in try(i.children, []) : [
+          for k in try(j.children, []) : [
+            for l in try(k.children, []) : [
+              for m in try(l.children, []) : [
+                for n in try(m.children, []) :
+                try(length(n.children), 0) > 0
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]))
+  ]
+
   device_admin_authorization_global_exception_rules = [
     for rule in try(local.ise.device_administration.authorization_global_exception_rules, []) : {
       name                       = rule.name
