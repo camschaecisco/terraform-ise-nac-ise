@@ -11,6 +11,7 @@ locals {
   user_defaults = { "defaults" : try(yamldecode(data.utils_yaml_merge.model.output)["defaults"], {}) }
   defaults      = yamldecode(data.utils_yaml_merge.defaults.output)["defaults"]
   model         = yamldecode(data.utils_yaml_merge.model.output)
+  ise           = try(local.model.ise, {})
 }
 
 data "utils_yaml_merge" "model" {

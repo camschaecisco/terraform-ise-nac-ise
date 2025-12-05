@@ -1,42 +1,123 @@
-version: ">= 0.14.0"
+# terraform-docs configuration for ISE Terraform Module
+# Following IOS-XE development standards
 
-formatter: markdown table
+formatter: "markdown table"
+
+version: ""
+
+header-from: main.tf
+footer-from: ""
+
+recursive:
+  enabled: false
+  path: modules
+
+sections:
+  hide: []
+  show: []
+  hide-all: false
+  show-all: true
 
 content: |-
-  # Terraform Network-as-Code Cisco ISE Module
+  # ISE Terraform Module with 7-Level Nesting Support
 
-  A Terraform module to configure Cisco ISE.
+  {{ .Header }}
+
+  ## Overview
+
+  This Terraform module manages Cisco ISE (Identity Services Engine) configurations with support for up to 7-level nested conditions. The module follows Network as Code principles with multi-device support, configuration hierarchy, and conditional deployment.
+
+  ## Features
+
+  - **7-Level Nesting Support**: Full schema support for 7-level nested conditions (Note: Terraform Framework currently limits to 5 levels)
+  - **Multi-Device Management**: Configure multiple ISE instances from a single module
+  - **Configuration Hierarchy**: Fallback logic with defaults and device-specific overrides
+  - **Conditional Deployment**: Support for full, incremental, and validate modes
+  - **Comprehensive Resource Coverage**: All 10 ISE authorization and authentication resources
 
   ## Usage
 
-  This module supports an inventory driven approach, where a complete ISE configuration or parts of it are either modeled in one or more YAML files or natively using Terraform variables.
+  ```hcl
+  module "ise" {
+    source = "./terraform-ise-nac-ise"
+
+    model = yamldecode(file("ise-config.yaml"))
+
+    devices = [
+      {
+        name     = "ise-primary"
+        url      = "https://ise1.example.com"
+        username = var.ise_username
+        password = var.ise_password
+      }
+    ]
+
+    deploy_mode = "full"
+    enable_7_level_nesting = false  # Set to true when framework supports it
+  }
+  ```
+
+  ## Nesting Levels
+
+  The module supports the following nesting structure:
+  - Level 1: Root condition
+  - Level 2-6: Any condition type (ConditionAndBlock, ConditionOrBlock, ConditionAttributes, ConditionReference)
+  - Level 7: Terminal level - only ConditionAttributes or ConditionReference
+
+  {{ .Requirements }}
+
+  {{ .Providers }}
+
+  {{ .Modules }}
+
+  {{ .Resources }}
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
 
   ## Examples
 
-  Configuring a Network Access Condition using YAML:
+  See the `examples/` directory for complete configuration examples including:
+  - Basic 5-level nesting (current limit)
+  - Full 7-level nesting (future capability)
+  - Multi-device configurations
+  - Complex authorization rules
 
-  #### `network_access_condition.yaml`
+  ## Known Limitations
 
-  ```yaml
-  {{ include "./examples/network_access_condition/network_access_condition.yaml" }}
-  ```
+  - Terraform Plugin Framework v1.16.1 currently enforces a 5-level nesting limit
+  - Use condition references as a workaround for deeper nesting requirements
 
-  #### `main.tf`
+  {{ .Footer }}
 
-  ```hcl
-  {{ include "./examples/network_access_condition/main.tf" }}
-  ```
-
-  {{ .Requirements }}
-  {{ .Inputs }}
-  {{ .Outputs }}
-  {{ .Providers }}
-  {{ .Resources }}
-  {{ .Modules }}
 output:
   file: README.md
   mode: replace
+  template: |-
+    <!-- BEGIN_TF_DOCS -->
+    {{ .Content }}
+    <!-- END_TF_DOCS -->
+
+output-values:
+  enabled: false
+  from: ""
 
 sort:
   enabled: true
-  by: required
+  by: name
+
+settings:
+  anchor: true
+  color: true
+  default: true
+  description: true
+  escape: true
+  hide-empty: false
+  html: true
+  indent: 2
+  lockfile: true
+  read-comments: true
+  required: true
+  sensitive: true
+  type: true
