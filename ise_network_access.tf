@@ -416,6 +416,13 @@ resource "ise_network_access_policy_set" "network_access_policy_set_0" {
   rank                      = each.value.rank
   children                  = each.value.children
 
+  lifecycle {
+    precondition {
+      condition     = !contains(local.network_access_policy_sets_with_excessive_nesting, each.key)
+      error_message = "Policy set '${each.key}' exceeds maximum nesting depth. Only 7 levels of condition nesting are supported (1 root + 6 nested children). Please reduce the nesting depth."
+    }
+  }
+
   depends_on = [ise_authorization_profile.authorization_profile, ise_allowed_protocols.allowed_protocols]
 }
 
@@ -1018,6 +1025,13 @@ resource "ise_network_access_authentication_rule" "network_access_authentication
   if_process_fail           = each.value.if_process_fail
   if_user_not_found         = each.value.if_user_not_found
   children                  = each.value.children
+
+  lifecycle {
+    precondition {
+      condition     = !contains(local.network_access_authentication_rules_with_excessive_nesting, each.key)
+      error_message = "Authentication rule '${each.key}' exceeds maximum nesting depth. Only 7 levels of condition nesting are supported (1 root + 6 nested children). Please reduce the nesting depth."
+    }
+  }
 
   depends_on = [ise_network_access_authentication_rule.network_access_authentication_rule_0]
 }
@@ -2212,6 +2226,13 @@ resource "ise_network_access_authorization_exception_rule" "network_access_autho
   security_group            = each.value.security_group
   children                  = each.value.children
 
+  lifecycle {
+    precondition {
+      condition     = !contains(local.network_access_authorization_exception_rules_with_excessive_nesting, each.key)
+      error_message = "Authorization exception rule '${each.key}' exceeds maximum nesting depth. Only 7 levels of condition nesting are supported (1 root + 6 nested children). Please reduce the nesting depth."
+    }
+  }
+
   depends_on = [ise_network_access_policy_set.network_access_policy_set_0, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, time_sleep.sgt_wait, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
 }
 
@@ -2741,6 +2762,13 @@ resource "ise_network_access_authorization_global_exception_rule" "network_acces
   profiles                  = each.value.profiles
   security_group            = each.value.security_group
   children                  = each.value.children
+
+  lifecycle {
+    precondition {
+      condition     = !contains(local.network_access_authorization_global_exception_rules_with_excessive_nesting, each.key)
+      error_message = "Authorization global exception rule '${each.key}' exceeds maximum nesting depth. Only 7 levels of condition nesting are supported (1 root + 6 nested children). Please reduce the nesting depth."
+    }
+  }
 
   depends_on = [ise_network_access_policy_set.network_access_policy_set_0, ise_authorization_profile.authorization_profile, ise_trustsec_security_group.trustsec_security_group, time_sleep.sgt_wait, ise_endpoint_identity_group.endpoint_identity_group, ise_user_identity_group.user_identity_group]
 }

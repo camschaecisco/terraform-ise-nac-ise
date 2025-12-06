@@ -274,6 +274,13 @@ resource "ise_device_admin_policy_set" "device_admin_policy_set_0" {
   rank                      = each.value.rank
   children                  = each.value.children
 
+  lifecycle {
+    precondition {
+      condition     = !contains(local.device_admin_policy_sets_with_excessive_nesting, each.key)
+      error_message = "Policy set '${each.key}' exceeds maximum nesting depth. Only 7 levels of condition nesting are supported (1 root + 6 nested children). Please reduce the nesting depth."
+    }
+  }
+
   depends_on = [ise_allowed_protocols_tacacs.allowed_protocols_tacacs]
 }
 
@@ -851,6 +858,13 @@ resource "ise_device_admin_authentication_rule" "device_admin_authentication_rul
   if_user_not_found         = each.value.if_user_not_found
   children                  = each.value.children
 
+  lifecycle {
+    precondition {
+      condition     = !contains(local.device_admin_authentication_rules_with_excessive_nesting, each.key)
+      error_message = "Authentication rule '${each.key}' exceeds maximum nesting depth. Only 7 levels of condition nesting are supported (1 root + 6 nested children). Please reduce the nesting depth."
+    }
+  }
+
   depends_on = [ise_device_admin_authentication_rule.device_admin_authentication_rule_0]
 }
 
@@ -1422,6 +1436,13 @@ resource "ise_device_admin_authorization_rule" "device_admin_authorization_rule_
   command_sets              = each.value.command_sets
   children                  = each.value.children
 
+  lifecycle {
+    precondition {
+      condition     = !contains(local.device_admin_authorization_rules_with_excessive_nesting, each.key)
+      error_message = "Authorization rule '${each.key}' exceeds maximum nesting depth. Only 7 levels of condition nesting are supported (1 root + 6 nested children). Please reduce the nesting depth."
+    }
+  }
+
   depends_on = [ise_tacacs_profile.tacacs_profile, ise_tacacs_command_set.tacacs_command_set, time_sleep.device_admin_policy_object_wait]
 }
 
@@ -1969,6 +1990,13 @@ resource "ise_device_admin_authorization_exception_rule" "device_admin_authoriza
   command_sets              = each.value.command_sets
   children                  = each.value.children
 
+  lifecycle {
+    precondition {
+      condition     = !contains(local.device_admin_authorization_exception_rules_with_excessive_nesting, each.key)
+      error_message = "Authorization exception rule '${each.key}' exceeds maximum nesting depth. Only 7 levels of condition nesting are supported (1 root + 6 nested children). Please reduce the nesting depth."
+    }
+  }
+
   depends_on = [ise_tacacs_profile.tacacs_profile, ise_tacacs_command_set.tacacs_command_set, time_sleep.device_admin_policy_object_wait]
 }
 
@@ -2508,6 +2536,13 @@ resource "ise_device_admin_authorization_global_exception_rule" "device_admin_au
   profile                   = each.value.profile
   command_sets              = each.value.command_sets
   children                  = each.value.children
+
+  lifecycle {
+    precondition {
+      condition     = !contains(local.device_admin_authorization_global_exception_rules_with_excessive_nesting, each.key)
+      error_message = "Authorization global exception rule '${each.key}' exceeds maximum nesting depth. Only 7 levels of condition nesting are supported (1 root + 6 nested children). Please reduce the nesting depth."
+    }
+  }
 
   depends_on = [ise_tacacs_profile.tacacs_profile, ise_tacacs_command_set.tacacs_command_set, time_sleep.device_admin_policy_object_wait]
 }
